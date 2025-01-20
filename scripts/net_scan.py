@@ -1,3 +1,8 @@
+# net_scan.py
+# Runs an nmap scan after taking an IP address and port range as input. Must be run with administrator privileges.
+# Created: 1/20/25
+# UPdated: 1/20/25
+
 import nmap
 
 nm = nmap.PortScanner()
@@ -16,6 +21,6 @@ for host in nm.all_hosts():
         print("Protocol: {}".format(protocol))
 
         list_port = nm[host][protocol].keys()
-        list_port.sort()
+
         for port in list_port:
-            print("Port: {}\tState: {}".format(port, nm[host][proto][port][state]))
+            print("Port: {}\tState: {}".format(port, nm[host][protocol][port]['state']))
