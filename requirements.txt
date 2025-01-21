@@ -1,0 +1,5 @@
+asgiref==3.8.1
+Django==5.1.5
+python-nmap==0.7.1
+sqlparse==0.5.3
+tzdata==2024.2
