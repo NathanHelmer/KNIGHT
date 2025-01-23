@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KNIGHT</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Courier New', Courier, monospace;
+            background-color: #0d1117;
+            color: #c9d1d9;
+        }
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(90deg, #3a3f44, #1e2228);
+            padding: 15px 30px;
+            border-bottom: 2px solid #ff4d4d;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        .company-name a {
+            text-decoration: none;
+            color: #ff4d4d;
+            font-size: 2em;
+            font-weight: bold;
+            text-shadow: 0 0 8px #ff4d4d, 0 0 16px #ff4d4d;
+            transition: transform 0.3s, text-shadow 0.3s;
+        }
+        .company-name a:hover {
+            transform: scale(1.1);
+            text-shadow: 0 0 12px #ff4d4d, 0 0 24px #ff4d4d;
+        }
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+        .nav-links a {
+            text-decoration: none;
+            color: #c9d1d9;
+            font-size: 1em;
+            font-weight: bold;
+            padding: 8px 16px;
+            border-radius: 10px;
+            background: rgba(255, 77, 77, 0.1);
+            transition: all 0.3s;
+        }
+        .nav-links a:hover {
+            background: rgba(255, 77, 77, 0.2);
+            color: #ff4d4d;
+            transform: translateY(-3px);
+            box-shadow: 0 0 8px #ff4d4d;
+        }
+        .homepage {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 40px 20px;
+        }
+        .homepage img {
+            max-width: 300px;
+            margin-bottom: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.7);
+        }
+        .homepage .description {
+            max-width: 800px;
+            font-size: 1.2em;
+            line-height: 1.6;
+        }
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: #1e2228;
+            border-top: 2px solid #ff4d4d;
+            color: #c9d1d9;
+            font-size: 0.9em;
+        }
+        footer a {
+            color: #ff4d4d;
+            text-decoration: none;
+        }
+        footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="company-name">
+            <a href="index.html">KNIGHT</a>
+        </div>
+        <nav class="nav-links">
+            <a href="nmap-scans.html">NMAP Scans</a>
+            <a href="nmap-logs.html">NMAP Logs</a>
+            <a href="vuln-scans.html">Vuln Scans</a>
+            <a href="exploitations.html">Exploitations</a>
+            <a href="previous-commands.html">Previous Commands</a>
+            <a href="help.html">Help</a>
+        </nav>
+    </header>
+    <main class="homepage">
+        <img src="./images/KnightLogo.jpg" alt="KNIGHT Logo">
+        <div class="description">
+            <h1>Welcome to KNIGHT</h1>
+            <p>
+                This website serves as a centralized hub for The KNIGHT Penetration Testing Tool. Network analysis, vulnerability scanning,
+                and penetration testing documentation will be accessed through this graphical interface. Use the navigation above to access tools, logs,
+                and resources designed for students and people looking to break into the field, as well as bolstering professionals already in the field.
+            </p>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; <span id="current-date"></span> | Contact us at <a href="mailto:nicolas.domico@stvincen.edu">nicolas.domico@stvincen.edu</a></p>
+        <script>
+            function updateTime() {
+                const now = new Date();
+                const formattedDate = now.toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' });
+                const formattedTime = now.toLocaleTimeString();
+                document.getElementById('current-date').textContent = `${formattedDate}, ${formattedTime}`;
+            }
+            setInterval(updateTime, 1000);
+            updateTime(); // Initialize immediately
+        </script>
+    </footer>
+</body>
+</html>
