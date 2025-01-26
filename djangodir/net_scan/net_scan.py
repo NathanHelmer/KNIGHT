@@ -5,6 +5,9 @@
 
 import nmap
 
+# Precondition: ipaddr is a string for the IP address of the form '255.255.255.255' and port_nums is a string for
+# the port range of the form 'x-y'
+# Postcondition: writes nmap scan results to nmap_results.txt
 def port_scan(ipaddr, port_nums):
     nm = nmap.PortScanner()
 
