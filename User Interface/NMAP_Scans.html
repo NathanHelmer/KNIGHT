@@ -3,32 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KNIGHT</title>
+    <title>NMAP Scans</title>
     <style>
         body {
             margin: 0;
-            font-family: 'Courier New', Courier, monospace; 
-            background-color: #0d1117; 
-            color: #c9d1d9; 
+            font-family: 'Courier New', Courier, monospace;
+            background-color: #0d1117;
+            color: #c9d1d9;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
         }
         header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: linear-gradient(90deg, #3a3f44, #1e2228); 
+            background: linear-gradient(90deg, #3a3f44, #1e2228);
             padding: 15px 30px;
-            border-bottom: 2px solid #ff4d4d; 
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); 
+            border-bottom: 2px solid #ff4d4d;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
             position: sticky;
             top: 0;
             z-index: 1000;
         }
         .company-name a {
             text-decoration: none;
-            color: #ff4d4d; 
+            color: #ff4d4d;
             font-size: 2em;
             font-weight: bold;
-            text-shadow: 0 0 8px #ff4d4d, 0 0 16px #ff4d4d; 
+            text-shadow: 0 0 8px #ff4d4d, 0 0 16px #ff4d4d;
             transition: transform 0.3s, text-shadow 0.3s;
         }
         .company-name a:hover {
@@ -41,63 +44,95 @@
         }
         .nav-links a {
             text-decoration: none;
-            color: #c9d1d9; 
+            color: #c9d1d9;
             font-size: 1em;
             font-weight: bold;
             padding: 8px 16px;
             border-radius: 10px;
-            background: rgba(255, 77, 77, 0.1); 
+            background: rgba(255, 77, 77, 0.1);
             transition: all 0.3s;
         }
         .nav-links a:hover {
-            background: rgba(255, 77, 77, 0.2); 
-            color: #ff4d4d; 
-            transform: translateY(-3px); 
-            box-shadow: 0 0 8px #ff4d4d; 
+            background: rgba(255, 77, 77, 0.2);
+            color: #ff4d4d;
+            transform: translateY(-3px);
+            box-shadow: 0 0 8px #ff4d4d;
         }
-        div.indent {
-  			text-indent: 20px;
-		}
-        
-        
-        
-       
-		.select {
-  			text-decoration: none;
-  			color: white;
-  			font-size: 20px;
-  			padding: 10px;
-  			display:inline-block;
-            background-color: black;
-		}
-		.select a {
-  			text-decoration: none;
-  			color: white;
-  			font-size: 20px;
-  			padding: 10px;
-  			display:inline-block;
-		}
-
-		ul {
- 			display: inline;
-  			margin: 0;
-  			padding: 0;
-		}
-		ul li {display: inline-block;}
-		ul li:hover {background: #555;}
-		ul li:hover ul {display: block;}
-		ul li ul {
-  			position: absolute;
-  			width: 200px;
-  			display: none;
-		}
-		ul li ul li { 
-  			background: #555; 
-  			display: block; 
-		}
-		ul li ul li a {display:block !important;} 
-		ul li ul li:hover {background: #666;}
-           
+        .nmap-scans {
+            display: flex;
+            padding: 20px;
+            gap: 20px;
+            flex: 1;
+        }
+        .configuration {
+            flex: 1;
+        }
+        .output-box {
+            flex: 1;
+            padding: 20px;
+            background: rgba(255, 77, 77, 0.1);
+            border: 2px solid #ff4d4d;
+            border-radius: 10px;
+            color: #ff4d4d;
+            font-family: 'Courier New', Courier, monospace;
+            overflow-y: auto;
+            white-space: pre-wrap;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+        }
+        .scan-section {
+            margin-bottom: 30px;
+        }
+        .scan-section h2 {
+            margin-bottom: 10px;
+            color: #ff4d4d;
+        }
+        .scan-section label {
+            display: block;
+            margin: 10px 0;
+            cursor: pointer;
+            padding: 10px;
+            border: 2px solid #ff4d4d;
+            border-radius: 10px;
+            text-align: center;
+            background: rgba(255, 77, 77, 0.1);
+            color: #c9d1d9;
+            transition: all 0.3s;
+        }
+        .scan-section label:hover {
+            background: rgba(255, 77, 77, 0.2);
+            box-shadow: 0 0 8px #ff4d4d;
+        }
+        .scan-section input[type="radio"] {
+            display: none;
+        }
+        .scan-section input[type="radio"]:checked + label {
+            background: rgba(255, 77, 77, 0.3);
+            color: #ff4d4d;
+        }
+        .scan-section input[type="text"] {
+            display: none;
+            margin-top: 10px;
+            padding: 10px;
+            width: 100%;
+            font-family: 'Courier New', Courier, monospace;
+            color: #c9d1d9;
+            background: #1e2228;
+            border: 2px solid #ff4d4d;
+            border-radius: 10px;
+        }
+        .scan-section input[type="checkbox"]:checked ~ input[type="text"] {
+            display: block;
+        }
+        #command-line {
+            margin-top: 20px;
+            padding: 10px;
+            width: 100%;
+            font-family: 'Courier New', Courier, monospace;
+            color: #c9d1d9;
+            background: #1e2228;
+            border: 2px solid #ff4d4d;
+            border-radius: 10px;
+        }
     </style>
 </head>
 <body>
@@ -114,40 +149,68 @@
             <a href="help.html">Help</a>
         </nav>
     </header>
-    
-	<div class="indent">
-  		<h1>NMAP Scans</h1>
-	</div>
-    
-    <div class="select">
-  <div class="select">Command-line flags</div>
-  <ul>
-    <li>
-      <a href="#">-v</a>
-      <ul>
-        <li><a href="#">-v stands for Verbose, meaning NMAP will attempt to tell you what it is doing.</a></li>
-      </ul>
-    </li>
-  </ul>
-  
-  <ul>
-    <li>
-      <a href="#">-sS</a>
-      <ul>
-        <li><a href="#">-sS SYN scan is the default and most popular scan option for good reason. It can be performed quickly, scanning thousands of ports per second on a fast network not hampered by intrusive firewalls.</a></li>
-      </ul>
-    </li>
-  </ul>
-</div>
+    <main class="nmap-scans">
+        <div class="configuration">
+            <h1>Configure Your NMAP Scan</h1>
 
-	<div class="indent">
-		<p>This is an example of what adding command line flags might look like</p>
-        <p>&nbsp;</p>
-		<p>&nbsp;</p>
-		<p>&nbsp;</p>
-		<p>I need to figure out how to toggle the command line flags on and off to change the input</p>
-    </div>
+            <!-- IP Address Section -->
+            <div class="scan-section" id="ip-address">
+                <h2>Target IP Address</h2>
+                <input type="text" id="ip-input" placeholder="Enter IP address here">
+            </div>
 
-    
+            <!-- Scan Type Section -->
+            <div class="scan-section" id="scan-type">
+                <h2>Scan Type</h2>
+                <input type="radio" id="ping-scan" name="scan-type" value="-sn">
+                <label for="ping-scan">Ping Scan</label>
+
+                <input type="radio" id="quick-scan" name="scan-type" value="-T4 -F">
+                <label for="quick-scan">Quick Scan</label>
+
+                <input type="radio" id="intense-scan" name="scan-type" value="-T4 -A -v">
+                <label for="intense-scan">Intense Scan</label>
+            </div>
+
+            <!-- Port Range Section -->
+            <div class="scan-section" id="port-range">
+                <h2>Port Range</h2>
+                <input type="checkbox" id="custom-ports">
+                <label for="custom-ports">Custom Range</label>
+                <input type="text" id="port-input" placeholder="Enter port range (e.g., 1-1000)">
+            </div>
+
+            <!-- Command Line Display -->
+            <textarea id="command-line" rows="2" readonly></textarea>
+        </div>
+
+        <div class="output-box" id="output">
+            <p>Scan results will appear here...</p>
+        </div>
+    </main>
+
+    <script>
+        const ipInput = document.getElementById('ip-input');
+        const scanTypeInputs = document.querySelectorAll('input[name="scan-type"]');
+        const portCheckbox = document.getElementById('custom-ports');
+        const portInput = document.getElementById('port-input');
+        const commandLine = document.getElementById('command-line');
+
+        function updateCommandLine() {
+            const ip = ipInput.value.trim();
+            let scanType = '';
+            scanTypeInputs.forEach(input => {
+                if (input.checked) scanType = input.value;
+            });
+            const ports = portCheckbox.checked ? `-p ${portInput.value.trim()}` : '';
+
+            commandLine.value = `nmap ${scanType} ${ports} ${ip}`.trim();
+        }
+
+        ipInput.addEventListener('input', updateCommandLine);
+        scanTypeInputs.forEach(input => input.addEventListener('change', updateCommandLine));
+        portCheckbox.addEventListener('change', updateCommandLine);
+        portInput.addEventListener('input', updateCommandLine);
+    </script>
 </body>
 </html>
