@@ -133,6 +133,14 @@
             border: 2px solid #ff4d4d;
             border-radius: 10px;
         }
+        footer {
+            text-align: center;
+            padding: 10px;
+            background: linear-gradient(90deg, #3a3f44, #1e2228);
+            border-top: 2px solid #ff4d4d;
+            color: #c9d1d9;
+            font-size: 0.9em;
+        }
     </style>
 </head>
 <body>
@@ -182,6 +190,12 @@
 
             <!-- Command Line Display -->
             <textarea id="command-line" rows="2" readonly></textarea>
+
+            <!-- File Input Section -->
+            <div class="scan-section" id="file-input">
+                <h2>Load Output from File</h2>
+                <input type="file" id="output-file" accept=".txt">
+            </div>
         </div>
 
         <div class="output-box" id="output">
@@ -189,12 +203,22 @@
         </div>
     </main>
 
+    <footer>
+        <p>&copy; <span id="current-year"></span> Nicolas Domico | Contact: <a href="mailto:nicolas.domico@stvincen.edu">nicolas.domico@stvincen.edu</a></p>
+    </footer>
+
     <script>
         const ipInput = document.getElementById('ip-input');
         const scanTypeInputs = document.querySelectorAll('input[name="scan-type"]');
         const portCheckbox = document.getElementById('custom-ports');
         const portInput = document.getElementById('port-input');
         const commandLine = document.getElementById('command-line');
+        const outputBox = document.getElementById('output');
+        const fileInput = document.getElementById('output-file');
+        const currentYear = document.getElementById('current-year');
+
+        // Update footer with the current year
+        currentYear.textContent = new Date().getFullYear();
 
         function updateCommandLine() {
             const ip = ipInput.value.trim();
@@ -211,6 +235,18 @@
         scanTypeInputs.forEach(input => input.addEventListener('change', updateCommandLine));
         portCheckbox.addEventListener('change', updateCommandLine);
         portInput.addEventListener('input', updateCommandLine);
+
+        // File input to display file contents in the output box
+        fileInput.addEventListener('change', (event) => {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    outputBox.textContent = e.target.result;
+                };
+                reader.readAsText(file);
+            }
+        });
     </script>
 </body>
 </html>
