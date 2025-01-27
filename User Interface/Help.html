@@ -31,6 +31,14 @@
             text-shadow: 0 0 8px #ff4d4d, 0 0 16px #ff4d4d; 
             transition: transform 0.3s, text-shadow 0.3s;
         }
+        .Link a {
+            text-decoration: none;
+            color: #ff4d4d; 
+            font-size: 1em;
+            font-weight: bold;
+            text-shadow: 0 0 8px #ff4d4d, 0 0 16px #ff4d4d; 
+            transition: transform 0.3s, text-shadow 0.3s;
+        }
         .company-name a:hover {
             transform: scale(1.1);
             text-shadow: 0 0 12px #ff4d4d, 0 0 24px #ff4d4d;
@@ -55,6 +63,9 @@
             transform: translateY(-3px); 
             box-shadow: 0 0 8px #ff4d4d; 
         }
+        .indent {
+  			text-indent: 33px;
+		}
     </style>
 </head>
 <body>
@@ -71,7 +82,76 @@
             <a href="help.html">Help</a>
         </nav>
     </header>
-<h1> HELP </h1>
-<p> This page includes information that may be useful </p>
+    <div class= indent>
+		<h1> HELP </h1>
+		<p> This page includes information that may be useful </p>
+        <h1> Glossary </h1>  
+        <div class="Link">
+        <a href="https://www.stationx.net/nmap-cheat-sheet/">NMAP Scan Flags</a>
+        </div>
+        <h5>Scan Techniques</h5>
+        <dl>
+  		<dt>-sS</dt>
+  		<dd>TCP SYN port scan (Default)</dd>
+  		<dt>-sT</dt>
+  		<dd>TCP connect port scan (Default without root privilege)</dd>
+        <dt>-sU</dt>
+        <dd>UDP port scan</dd>
+        <dt>-sA</dt>
+        <dd>TCP ACK port scan</dd>
+        <dt>-sW</dt>
+        <dd>TCP Window port scan</dd>
+        <dt>-sM</dt>
+        <dd>TCP Maimon port scan</dd>
+        <h5>Host Discovery</h5>
+        <dt>-sL</dt>
+        <dd>No Scan. List targets only.</dd>
+        <dt>-sn</dt>
+        <dd>Disable port scanning. Host discovery only.</dd>
+        <dt>-Pn</dt>
+        <dd>Disable host discovery. Port scan only.</dd>
+        <dt>-PS</dt>
+        <dd>TCP SYN discovery on port x. Port 80 by default.</dd>
+        <dt>-PA</dt>
+        <dd>TCP ACK discovery on port x. Port 80 by default.</dd>
+        <dt>-PU</dt>
+        <dd>UDP discovery on port x. Port 40125 by default.</dd>
+        <dt>-PR</dt>
+        <dd>ARP discovery on local network</dd>
+        <dt>-n</dt>
+        <dd>Never do DNS resolution</dd>
+        <h5>Service and Version Detection</h5>
+        <dt>-sV</dt>
+        <dd>Attempts to determine the version of the service running on port</dd>
+        <dt>-A</dt>
+        <dd>Enables OS detection, version detection, script scanning, and traceroute</dd>
+        <h5>OS Detection</h5>
+        <dt>-O</dt>
+        <dd>Remote OS detection using TCP/IP stack fingerprinting</dd>
+        <h5>Timing and Performance</h5>
+        <dt>-T0</dt>
+        <dd>Paranoid (0) Intrusion Detection System evasion</dd>
+        <dt>-T1</dt>
+        <dd>Sneaky (1) Intrusion Detection System evasion</dd>
+        <dt>-T2</dt>
+        <dd>Polite (2) slows down the scan to use less bandwidth and use less target machine resources</dd>
+        <dt>-T3</dt>
+        <dd>Normal (3) which is default speed</dd>
+        <dt>-T4</dt>
+        <dd>Aggressive (4) speeds scans; assumes you are on a reasonably fast and reliable network</dd>
+        <dt>-T5</dt>
+        <dd>Insane (5) speeds scan; assumes you are on an extraordinarily fast network</dd>
+        <h5>Firewall / IDS Evasion and Spoofing</h5>
+        <dt>-f</dt>
+        <dd>Requested scan (including ping scans) use tiny fragmented IP packets. Harder for packet filters</dd>
+        <h5>Output</h5>
+        <dt></dt>
+        <dd></dd>
+        <dt></dt>
+        <dd></dd>
+        <dt></dt>
+        <dd></dd>
+		</dl>
+    </div>
 </body>
 </html>
