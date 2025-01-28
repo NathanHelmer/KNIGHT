@@ -22,9 +22,6 @@
             padding: 15px 30px;
             border-bottom: 2px solid #ff4d4d;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
         }
         .company-name a {
             text-decoration: none;
@@ -102,26 +99,14 @@
             background: rgba(255, 77, 77, 0.2);
             box-shadow: 0 0 8px #ff4d4d;
         }
-        .scan-section input[type="radio"] {
+        .scan-section input[type="radio"],
+        .scan-section input[type="checkbox"] {
             display: none;
         }
-        .scan-section input[type="radio"]:checked + label {
+        .scan-section input[type="radio"]:checked + label,
+        .scan-section input[type="checkbox"]:checked + label {
             background: rgba(255, 77, 77, 0.3);
             color: #ff4d4d;
-        }
-        .scan-section input[type="text"] {
-            display: none;
-            margin-top: 10px;
-            padding: 10px;
-            width: 100%;
-            font-family: 'Courier New', Courier, monospace;
-            color: #c9d1d9;
-            background: #1e2228;
-            border: 2px solid #ff4d4d;
-            border-radius: 10px;
-        }
-        .scan-section input[type="checkbox"]:checked ~ input[type="text"] {
-            display: block;
         }
         #command-line {
             margin-top: 20px;
@@ -161,23 +146,24 @@
         <div class="configuration">
             <h1>Configure Your NMAP Scan</h1>
 
+            <!-- Quick Options Section -->
+            <div class="scan-section" id="quick-options">
+                <h2>Quick Scan Options</h2>
+                <select id="quick-options-select">
+                    <option value="">Select a quick scan option</option>
+                    <option value="-sP">Ping Scan</option>
+                    <option value="-sS">SYN Scan</option>
+                    <option value="-sU">UDP Scan</option>
+                    <option value="-sV">Service Version Scan</option>
+                    <option value="-O">OS Detection Scan</option>
+                    <option value="-A">Aggressive Scan</option>
+                </select>
+            </div>
+
             <!-- IP Address Section -->
             <div class="scan-section" id="ip-address">
                 <h2>Target IP Address</h2>
                 <input type="text" id="ip-input" placeholder="Enter IP address here">
-            </div>
-
-            <!-- Scan Type Section -->
-            <div class="scan-section" id="scan-type">
-                <h2>Scan Type</h2>
-                <input type="radio" id="ping-scan" name="scan-type" value="-sn">
-                <label for="ping-scan">Ping Scan</label>
-
-                <input type="radio" id="quick-scan" name="scan-type" value="-T4 -F">
-                <label for="quick-scan">Quick Scan</label>
-
-                <input type="radio" id="intense-scan" name="scan-type" value="-T4 -A -v">
-                <label for="intense-scan">Intense Scan</label>
             </div>
 
             <!-- Port Range Section -->
@@ -188,19 +174,45 @@
                 <input type="text" id="port-input" placeholder="Enter port range (e.g., 1-1000)">
             </div>
 
+            <!-- Custom Scan Options Section -->
+            <div class="scan-section" id="scan-type">
+                <h2>Custom Scan Options</h2>
+                <input type="checkbox" id="verbose" value="-v">
+                <label for="verbose">Verbose</label>
+
+                <input type="checkbox" id="os-detection" value="-O">
+                <label for="os-detection">OS Detection</label>
+
+                <input type="checkbox" id="service-detection" value="-sV">
+                <label for="service-detection">Service/Version Detection</label>
+
+                <h3>Scan Speed</h3>
+                <select id="speed">
+                    <option value="">Default</option>
+                    <option value="-T0">T0 (Slowest)</option>
+                    <option value="-T1">T1</option>
+                    <option value="-T2">T2</option>
+                    <option value="-T3">T3 (Default)</option>
+                    <option value="-T4">T4</option>
+                    <option value="-T5">T5 (Fastest)</option>
+                </select>
+            </div>
+
             <!-- Command Line Display -->
             <textarea id="command-line" rows="2" readonly></textarea>
+        </div>
 
-            <!-- File Input Section -->
-            <div class="scan-section" id="file-input">
-                <h2>Load Output from File</h2>
-                <input type="file" id="output-file" accept=".txt">
-            </div>
+        <div class="scan-section" id="run-scan">
+            <button id="run-scan-button" disabled>Run Scan</button>
+            <p id="scan-status">Scan not ready</p>
         </div>
 
         <div class="output-box" id="output">
-            <p>Scan results will appear here...</p>
+            Results will appear here
         </div>
+
+        
+
     </main>
 
     <footer>
@@ -209,44 +221,115 @@
 
     <script>
         const ipInput = document.getElementById('ip-input');
-        const scanTypeInputs = document.querySelectorAll('input[name="scan-type"]');
+        const quickOptions = document.getElementById('quick-options-select');
+        const verbose = document.getElementById('verbose');
+        const osDetection = document.getElementById('os-detection');
+        const serviceDetection = document.getElementById('service-detection');
+        const speed = document.getElementById('speed');
         const portCheckbox = document.getElementById('custom-ports');
         const portInput = document.getElementById('port-input');
         const commandLine = document.getElementById('command-line');
         const outputBox = document.getElementById('output');
-        const fileInput = document.getElementById('output-file');
         const currentYear = document.getElementById('current-year');
 
         // Update footer with the current year
         currentYear.textContent = new Date().getFullYear();
 
+        let scanExecuted = false;
+
         function updateCommandLine() {
             const ip = ipInput.value.trim();
-            let scanType = '';
-            scanTypeInputs.forEach(input => {
-                if (input.checked) scanType = input.value;
-            });
-            const ports = portCheckbox.checked ? `-p ${portInput.value.trim()}` : '';
 
-            commandLine.value = `nmap ${scanType} ${ports} ${ip}`.trim();
+            // If a quick option is selected, use it exclusively
+            const quickOption = quickOptions.value;
+            if (quickOption) {
+                commandLine.value = `nmap ${quickOption} ${ip}`.trim();
+                return;
+            }
+
+            // Otherwise, build the custom command
+            const options = [verbose.checked ? verbose.value : '', osDetection.checked ? osDetection.value : '', serviceDetection.checked ? serviceDetection.value : '', speed.value].filter(Boolean).join(' ');
+            const ports = portCheckbox.checked ? `-p ${portInput.value.trim()}` : '';
+            commandLine.value = `nmap ${options} ${ports} ${ip}`.trim();
+        }
+
+        function clearOutputBox() {
+            if (!scanExecuted) {
+                outputBox.textContent = "Results will appear here";
+            }
         }
 
         ipInput.addEventListener('input', updateCommandLine);
-        scanTypeInputs.forEach(input => input.addEventListener('change', updateCommandLine));
+        quickOptions.addEventListener('change', updateCommandLine);
+        verbose.addEventListener('change', updateCommandLine);
+        osDetection.addEventListener('change', updateCommandLine);
+        serviceDetection.addEventListener('change', updateCommandLine);
+        speed.addEventListener('change', updateCommandLine);
         portCheckbox.addEventListener('change', updateCommandLine);
         portInput.addEventListener('input', updateCommandLine);
 
-        // File input to display file contents in the output box
-        fileInput.addEventListener('change', (event) => {
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    outputBox.textContent = e.target.result;
-                };
-                reader.readAsText(file);
+        async function loadResults() {
+            try {
+                const response = await fetch('/load-nmap-results/');
+                const text = await response.text();
+                outputBox.textContent = text || 'No results available.';
+                scanExecuted = true;
+            } catch (error) {
+                outputBox.textContent = 'Failed to load results.';
+                scanExecuted = false;
             }
+        }
+
+        window.onload = () => {
+            clearOutputBox();
+        };
+        const runScanButton = document.getElementById('run-scan-button');
+const scanStatus = document.getElementById('scan-status');
+
+// Enable button if IP and command are valid
+function updateRunButton() {
+    const ip = ipInput.value.trim();
+    const isReady = ip && commandLine.value.trim();
+    runScanButton.disabled = !isReady;
+    scanStatus.textContent = isReady ? 'Scan ready to run' : 'Scan not ready';
+    scanStatus.style.color = isReady ? 'green' : 'red';
+}
+
+// Add event listeners to update the run button when inputs change
+ipInput.addEventListener('input', updateRunButton);
+quickOptions.addEventListener('change', updateRunButton);
+verbose.addEventListener('change', updateRunButton);
+osDetection.addEventListener('change', updateRunButton);
+serviceDetection.addEventListener('change', updateRunButton);
+speed.addEventListener('change', updateRunButton);
+portCheckbox.addEventListener('change', updateRunButton);
+portInput.addEventListener('input', updateRunButton);
+
+// Add a click handler for the button (to run the scan)
+runScanButton.addEventListener('click', async () => {
+    try {
+        scanStatus.textContent = 'Running scan...';
+        scanStatus.style.color = 'orange';
+
+        const response = await fetch('/run-scan/', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ command: commandLine.value }),
         });
+
+        if (response.ok) {
+            scanStatus.textContent = 'Scan completed!';
+            scanStatus.style.color = 'green';
+            loadResults(); // Load the scan results after it runs
+        } else {
+            throw new Error('Scan failed');
+        }
+    } catch (error) {
+        scanStatus.textContent = 'Scan failed';
+        scanStatus.style.color = 'red';
+    }
+});
+
     </script>
 </body>
 </html>
