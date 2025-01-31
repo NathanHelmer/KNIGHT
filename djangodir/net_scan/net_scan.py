@@ -1,7 +1,7 @@
 # net_scan.py
 # Runs an nmap scan after taking an IP address and port range as input. Must be run with administrator privileges.
 # Created: 1/20/25
-# Updated: 1/26/25
+# Updated: 1/30/25
 
 import nmap
 
@@ -20,9 +20,9 @@ def port_scan(ipaddr, port_nums, scan_type='ping'):
     
     nm = nmap.PortScanner()
 
-    scan_output = nm.scan(ipaddr, port_nums, scan_type)
+    scan_output = nm.scan(ipaddr, port_nums, scan_flag)
 
-    map_out = open('nmap_results.txt', 'w')
+    map_out = open('nmap_results.txt', 'a')
 
     for host in nm.all_hosts():
         map_out.write('---------------------------------\n')
@@ -38,3 +38,13 @@ def port_scan(ipaddr, port_nums, scan_type='ping'):
                 map_out.write("Port: {}\tState: {}\n".format(port, nm[host][protocol][port]['state']))
 
     map_out.close()
+
+def run_scans():
+    test_range = '10.25.1.5'
+    test_ports = '1-100'
+
+    port_scan(test_range, test_ports, 'ping')
+    port_scan(test_range, test_ports, 'quick')
+    port_scan(test_range, test_ports, 'intense')
+
+run_scans()
