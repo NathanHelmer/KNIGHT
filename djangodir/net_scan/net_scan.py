@@ -24,6 +24,8 @@ def port_scan(ipaddr, port_nums, scan_type='ping'):
 
     map_out = open('nmap_results.txt', 'a')
 
+    print('nmap {} -p {} {}'.format(scan_flag, port_nums, ipaddr))
+
     for host in nm.all_hosts():
         map_out.write('---------------------------------\n')
         map_out.write("Host: {} ({})\n".format(host, nm[host].hostname()))
@@ -39,6 +41,8 @@ def port_scan(ipaddr, port_nums, scan_type='ping'):
 
     map_out.close()
 
+# Precondition: none
+# Postcondition: runs sample scans and ouputs the results to nmap_results.txt
 def run_scans():
     test_range = '10.25.1.5'
     test_ports = '1-100'
@@ -46,5 +50,3 @@ def run_scans():
     port_scan(test_range, test_ports, 'ping')
     port_scan(test_range, test_ports, 'quick')
     port_scan(test_range, test_ports, 'intense')
-
-run_scans()
