@@ -1,11 +1,69 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KNIGHT</title>
     <style>
+        body {
+            margin: 0;
+            font-family: 'Courier New', Courier, monospace; 
+            background-color: #0d1117; 
+            color: #c9d1d9; 
+        }
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(90deg, #3a3f44, #1e2228); 
+            padding: 15px 30px;
+            border-bottom: 2px solid #ff4d4d; 
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); 
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        .company-name a {
+            text-decoration: none;
+            color: #ff4d4d; 
+            font-size: 2em;
+            font-weight: bold;
+            text-shadow: 0 0 8px #ff4d4d, 0 0 16px #ff4d4d; 
+            transition: transform 0.3s, text-shadow 0.3s;
+        }
+        .company-name a:hover {
+            transform: scale(1.1);
+            text-shadow: 0 0 12px #ff4d4d, 0 0 24px #ff4d4d;
+        }
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+        .nav-links a {
+            text-decoration: none;
+            color: #c9d1d9; 
+            font-size: 1em;
+            font-weight: bold;
+            padding: 8px 16px;
+            border-radius: 10px;
+            background: rgba(255, 77, 77, 0.1); 
+            transition: all 0.3s;
+        }
+        .nav-links a:hover {
+            background: rgba(255, 77, 77, 0.2); 
+            color: #ff4d4d; 
+            transform: translateY(-3px); 
+            box-shadow: 0 0 8px #ff4d4d; 
+        }
+        
+        
         .table-container {
             max-height: 300px;
             overflow-y: auto;
-            border: 2px solid #ccc;
+            border: 3.5px solid #812e31;
             width: 70%;
+            margin-left: auto; 
+  			margin-right: auto;
         }
         table {
             width: 100%;
@@ -14,26 +72,54 @@
         thead th {
             position: sticky;
             top: 0;
-            background-color: #f1f1f1;
+            background-color: #ff4d4d;
             z-index: 1;
+            font-size: 25px;
         }
         th, td {
-            padding: 15px;
+            padding: 11px;
             text-align: left;
-            border: 1px solid #ddd;
+            border: 1px solid #a83739;
+        }
+        .indent {
+  			text-indent: 32px;
+		}
+        .title{
+            text-decoration: none;
+            color: #ff4d4d; 
+            font-size: 1em;
+            font-weight: bold;
+            text-shadow: 0 0 8px #ff4d4d, 0 0 16px #ff4d4d; 
+            transition: transform 0.3s, text-shadow 0.3s;
+            text-align: center;
         }
     </style>
 </head>
 <body>
-<h1> NMAP &nbsp; SCAN &nbsp; LOGS </h1>
+    <header>
+        <div class="company-name">
+            <a href="index.html">KNIGHT</a>
+        </div>
+        <nav class="nav-links">
+            <a href="nmap-scans.html">NMAP Scans</a>
+            <a href="nmap-logs.html">NMAP Logs</a>
+            <a href="vuln-scans.html">Vuln Scans</a>
+            <a href="exploitations.html">Exploitations</a>
+            <a href="previous-commands.html">Previous Commands</a>
+            <a href="help.html">Help</a>
+        </nav>
+    </header>
+    <div class= title>
+    <h1> NMAP SCAN LOGS </h1>
+    </div>
     <div class="table-container">
         <table>
             <thead>
                 <tr>
-                    <th>Name</th>
-                    <th>Type</th>
-                    <th>Target</th>
-                    <th>Date</th>
+                    <th><b>Name</b></th>
+                    <th><b>Type</b></th>
+                    <th><b>Target</b></th>
+                    <th><b>Date</b></th>
                 </tr>
             </thead>
             <tbody>
@@ -97,11 +183,26 @@
                     <td>10.25.1.8</td>
                     <td>1/17/25</td>
                 </tr>
+                <tr>
+                    <td>Nathan</td>
+                    <td>NMAP</td>
+                    <td>10.25.1.7</td>
+                    <td>1/17/25</td>
+                </tr>
+                <tr>
+                    <td>Nathan</td>
+                    <td>NMAP</td>
+                    <td>10.25.1.7</td>
+                    <td>1/17/25</td>
+                </tr>
+                <tr>
+                    <td>Nathan</td>
+                    <td>NMAP</td>
+                    <td>10.25.1.7</td>
+                    <td>1/17/25</td>
+                </tr>
             </tbody>
         </table>
     </div>
-    
-<p>On this page we will have scan logs. This section is NMAP, but we may have other tables that represent other logs of some sort. Once we figure out how to convert user input from html to a terminal command (nmap -v scanme.nmap.org), we will also run a date command to grab the date and exact time. That will be placed in the date portion of the table </p>
-
 </body>
 </html>
