@@ -43,6 +43,8 @@ def port_scan(ipaddr, port_nums, scan_type='ping'):
 
     map_out.close()
 
+    return scan_output
+
 # Precondition: none
 # Postcondition: runs sample scans and ouputs the results to nmap_results.txt
 def run_scans():
