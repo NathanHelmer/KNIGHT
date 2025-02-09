@@ -8,23 +8,14 @@ import nmap
 # Precondition: ipaddr is a string for the IP address of the form '255.255.255.255' and port_nums is a string for
 # the port range of the form 'x-y'
 # Postcondition: writes nmap scan results to nmap_results.txt
-def port_scan(ipaddr, port_nums, scan_type='ping'):
-    #set the scan flag based on the type of scan
-    scan_flag = ''
-    if(scan_type == 'ping'):
-        scan_flag = '-sn'
-    elif(scan_type == 'quick'):
-        scan_flag = '-T4 -F'
-    elif(scan_type == 'intense'):
-        scan_flag = '-T4 -A -v'
-    
+def port_scan(ipaddr, port_nums='1-100', scan_flags=''):    
     nm = nmap.PortScanner()
 
-    scan_output = nm.scan(ipaddr, port_nums, scan_flag)
+    scan_output = nm.scan(ipaddr, port_nums, scan_flags)
 
     map_out = open('nmap_results.txt', 'a')
 
-    map_out.write('nmap {} -p {} {}\n'.format(scan_flag, port_nums, ipaddr))
+    map_out.write('nmap {} -p {} {}\n'.format(scan_flags, port_nums, ipaddr))
 
     for host in nm.all_hosts():
         map_out.write('---------------------------------\n')

@@ -2,3 +2,34 @@ nmap -sn -p 1-5000 127.0.0.1
 
 nmap -T4 -F -p 1-5000 127.0.0.1
 
+nmap -sn -p  127.0.0.1
+
+nmap -sn -p  127.0.0.1
+
+nmap -sn -p  127.0.0.1
+
+nmap -sn -p  127.0.0.1
+
+nmap -sn -p  127.0.0.1
+
+nmap -sn -p  127.0.0.1
+
+nmap -sn -p  127.0.0.1
+
+nmap -sn -p  127.0.0.1
+
+nmap -sn -p  127.0.0.1
+
+nmap -sn -p  127.0.0.1
+
+nmap -sn -p  127.0.0.1
+
+nmap -sn -p  127.0.0.1
+
+nmap -sN -p  127.0.0.1
+
+nmap -sN -p 1-100 127.0.0.1
+---------------------------------
+Host: 127.0.0.1 (localhost)
+State: up
+
