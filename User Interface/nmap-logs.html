@@ -55,8 +55,6 @@
             transform: translateY(-3px); 
             box-shadow: 0 0 8px #ff4d4d; 
         }
-        
-        
         .table-container {
             max-height: 300px;
             overflow-y: auto;
@@ -109,8 +107,8 @@
             <a href="help.html">Help</a>
         </nav>
     </header>
-    <div class= title>
-    <h1> NMAP SCAN LOGS </h1>
+    <div class="title">
+        <h1> NMAP SCAN LOGS </h1>
     </div>
     <div class="table-container">
         <table>
@@ -122,87 +120,38 @@
                     <th><b>Date</b></th>
                 </tr>
             </thead>
-            <tbody>
-                <tr>
-                    <td>Nathan</td>
-                    <td>CUSTOM</td>
-                    <td>10.25.1.7</td>
-                    <td>1/17/25</td>
-                </tr>
-                <tr>
-                    <td>Michael</td>
-                    <td>PING</td>
-                    <td>10.25.1.43</td>
-                    <td>1/17/25</td>
-                </tr>
-                <tr>
-                    <td>Matthew</td>
-                    <td>INTENSE</td>
-                    <td>10.25.1.3</td>
-                    <td>1/17/25</td>
-                </tr>
-                <tr>
-                    <td>Tim</td>
-                    <td>CUSTOM</td>
-                    <td>10.25.1.2</td>
-                    <td>1/17/25</td>
-                </tr>
-                <tr>
-                    <td>Nick</td>
-                    <td>QUICK</td>
-                    <td>10.25.1.8</td>
-                    <td>1/17/25</td>
-                </tr>
-                <tr>
-                    <td>Nathan</td>
-                    <td>PING</td>
-                    <td>10.25.1.7</td>
-                    <td>1/17/25</td>
-                </tr>
-                <tr>
-                    <td>Michael</td>
-                    <td>CUSTOM</td>
-                    <td>10.25.1.43</td>
-                    <td>1/17/25</td>
-                </tr>
-                <tr>
-                    <td>Matthew</td>
-                    <td>QUICK</td>
-                    <td>10.25.1.3</td>
-                    <td>1/17/25</td>
-                </tr>
-                <tr>
-                    <td>Tim</td>
-                    <td>PING</td>
-                    <td>10.25.1.2</td>
-                    <td>1/17/25</td>
-                </tr>
-                <tr>
-                    <td>Nick</td>
-                    <td>PING</td>
-                    <td>10.25.1.8</td>
-                    <td>1/17/25</td>
-                </tr>
-                <tr>
-                    <td>Nathan</td>
-                    <td>CUSTOM</td>
-                    <td>10.25.1.7</td>
-                    <td>1/17/25</td>
-                </tr>
-                <tr>
-                    <td>Nathan</td>
-                    <td>INTENSE</td>
-                    <td>10.25.1.7</td>
-                    <td>1/17/25</td>
-                </tr>
-                <tr>
-                    <td>Nathan</td>
-                    <td>CUSTOM</td>
-                    <td>10.25.1.7</td>
-                    <td>1/17/25</td>
-                </tr>
+            <tbody id="logTableBody">
+                <!-- Log data will be loaded here dynamically -->
             </tbody>
         </table>
     </div>
+
+    <script>
+        async function loadLogs() {
+            try {
+                const response = await fetch("http://127.0.0.1:5000/logs");
+                const logs = await response.json();
+                
+                const tableBody = document.getElementById("logTableBody");
+                tableBody.innerHTML = ""; // Clear existing rows
+
+                logs.forEach(log => {
+                    const row = document.createElement("tr");
+                    row.innerHTML = `
+                        <td>${log.Name || "Unknown"}</td>
+                        <td>${log.Type || "Unknown"}</td>
+                        <td>${log.Target || "Unknown"}</td>
+                        <td>${log.Date || "Unknown"}</td>
+                    `;
+                    tableBody.appendChild(row);
+                });
+            } catch (error) {
+                console.error("Error loading logs:", error);
+            }
+        }
+
+        // Load logs when page loads
+        document.addEventListener("DOMContentLoaded", loadLogs);
+    </script>
 </body>
 </html>
