@@ -152,7 +152,7 @@
                 <select id="quick-options-select">
                     <option value="">Select a quick scan option</option>
                     <option value="-sP">Ping Scan</option>
-                    < coption value="-sS">SYN Scan</option>
+                    <option value="-sS">SYN Scan</option>
                     <option value="-sU">UDP Scan</option>
                     <option value="-A">Aggressive Scan</option>
                 </select>
@@ -265,10 +265,16 @@
         portInput.addEventListener('input', updateCommandLine);
 
         async function loadResults() {
+            const ip = ipInput.value.trim();
+            const ports = portInput.value;
+            const url = `/run-nmap-scan/?ip=${encodeURIComponent(ip)}&ports=${encodeURIComponent(ports)}`;
+
             try {
-                const response = await fetch('/load-nmap-results/');
-                const text = await response.text();
-                outputBox.textContent = text || 'No results available.';
+                const response = await fetch(url);
+                const text = await response.json();
+                //const text = "Hello World"
+                //outputBox.textContent = text || 'No results available.';
+                outputBox.textContent = JSON.stringify(text, null, 2);
                 scanExecuted = true;
             } catch (error) {
                 outputBox.textContent = 'Failed to load results.';
@@ -278,9 +284,11 @@
 
         window.onload = () => {
             clearOutputBox();
+    
         };
-        const runScanButton = document.getElementById('run-scan-button');
-const scanStatus = document.getElementById('scan-status');
+
+    const runScanButton = document.getElementById('run-scan-button');
+    const scanStatus = document.getElementById('scan-status');
 
 // Enable button if IP and command are valid
 function updateRunButton() {
@@ -303,14 +311,21 @@ portInput.addEventListener('input', updateRunButton);
 
 // Add a click handler for the button (to run the scan)
 runScanButton.addEventListener('click', async () => {
+    const ip = ipInput.value.trim();
+    const ports = portInput.value;
+    const url = `/run-nmap-scan/?ip=${encodeURIComponent(ip)}&ports=${encodeURIComponent(ports)}`;
+    
+    //We have a problem where the scan runs twice, once here and once in loadResults
+    //I'm not sure how to fix this without messing up the run scan button
+   
     try {
         scanStatus.textContent = 'Running scan...';
         scanStatus.style.color = 'orange';
 
-        const response = await fetch('/run-scan/', {
-            method: 'POST',
+        const response = await fetch(url, {
+            method: 'GET',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ command: commandLine.value }),
+            //body: JSON.stringify({ command: commandLine.value }),
         });
 
         if (response.ok) {
