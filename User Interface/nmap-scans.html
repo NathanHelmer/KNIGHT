@@ -252,17 +252,10 @@
         portCheckbox.addEventListener('change', updateCommandLine);
         portInput.addEventListener('input', updateCommandLine);
 
-        async function loadResults() {
-            const ip = ipInput.value.trim();
-            const ports = portInput.value;
-            const url = `/run-nmap-scan/?ip=${encodeURIComponent(ip)}&ports=${encodeURIComponent(ports)}`;
-
+        async function loadResults(response) {
             try {
-                const response = await fetch(url);
                 const text = await response.json();
-                //const text = "Hello World"
-                //outputBox.textContent = text || 'No results available.';
-                outputBox.textContent = JSON.stringify(text, null, 2);
+                outputBox.textContent = JSON.stringify(text, null, 2) || 'No results available.';
                 scanExecuted = true;
             } catch (error) {
                 outputBox.textContent = 'Failed to load results.';
@@ -272,7 +265,6 @@
 
         window.onload = () => {
             clearOutputBox();
-    
         };
 
     const runScanButton = document.getElementById('run-scan-button');
@@ -302,9 +294,6 @@ runScanButton.addEventListener('click', async () => {
     const ip = ipInput.value.trim();
     const ports = portInput.value;
     const url = `/run-nmap-scan/?ip=${encodeURIComponent(ip)}&ports=${encodeURIComponent(ports)}`;
-    
-    //We have a problem where the scan runs twice, once here and once in loadResults
-    //I'm not sure how to fix this without messing up the run scan button
    
     try {
         scanStatus.textContent = 'Running scan...';
@@ -319,7 +308,7 @@ runScanButton.addEventListener('click', async () => {
         if (response.ok) {
             scanStatus.textContent = 'Scan completed!';
             scanStatus.style.color = 'green';
-            loadResults(); // Load the scan results after it runs
+            loadResults(response); // Load the scan results after it runs
         } else {
             throw new Error('Scan failed');
         }
