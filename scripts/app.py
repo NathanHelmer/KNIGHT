@@ -1,7 +1,7 @@
 from flask import Flask, render_template, jsonify, request
 from net_scan import port_scan 
 
-app = Flask(__name__, template_folder='../User Interface')
+app = Flask(__name__, template_folder='../User Interface', static_folder='../User Interface/images')
 
 @app.route('/')
 def home():
