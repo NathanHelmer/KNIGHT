@@ -23,7 +23,8 @@ def run_help_page():
 def run_nmap_scan():
     ipaddr = request.args.get('ip', '192.168.2.241')
     ports = request.args.get('ports', '1-6000')
-    return jsonify(port_scan(ipaddr, ports, 'sN'))
+    scan_flags = request.args.get('flags', '-sN')
+    return jsonify(port_scan(ipaddr, ports, scan_flags))
 
 if __name__ == '__main__':
     app.run(debug=True)
