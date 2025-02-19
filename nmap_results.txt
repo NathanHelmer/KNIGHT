@@ -33,3 +33,10 @@ nmap -sN -p 1-100 127.0.0.1
 Host: 127.0.0.1 (localhost)
 State: up
 
+nmap -sN -p 1-100 127.0.0.1
+---------------------------------
+Host: 127.0.0.1 (localhost)
+State: up
+
+nmap -sN -p 1-100 10.25.1.6
+
