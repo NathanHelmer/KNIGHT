@@ -293,9 +293,8 @@ portInput.addEventListener('input', updateRunButton);
 runScanButton.addEventListener('click', async () => {
     const ip = ipInput.value.trim();
     const ports = portInput.value;
-    //const cmd = commandLine.value;
-    const url = `/run-nmap-scan/?ip=${encodeURIComponent(ip)}&ports=${encodeURIComponent(ports)}`;
-    //const url = `/run-nmap-scan/?ip=${encodeURIComponent(cmd)}`;
+    const cmd = commandLine.value;
+    const url = `/run-nmap-scan/?ip=${encodeURIComponent(ip)}&ports=${encodeURIComponent(ports)}&cmd=${encodeURIComponent(cmd)}`;
 
     try {
         scanStatus.textContent = 'Running scan...';

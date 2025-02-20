@@ -1,5 +1,5 @@
 from flask import Flask, render_template, jsonify, request
-from net_scan import port_scan 
+from net_scan import port_scan, get_flags
 
 app = Flask(__name__, template_folder='../User Interface', static_folder='../User Interface/images')
 
@@ -23,8 +23,10 @@ def run_help_page():
 def run_nmap_scan():
     ipaddr = request.args.get('ip', '192.168.2.241')
     ports = request.args.get('ports', '1-6000')
-    scan_flags = request.args.get('flags', '-sN')
-    #cmd_line = request.args.get('cmd', 'nmap 127.0.0.1')
+    cmd_line = request.args.get('cmd', 'nmap 127.0.0.1')
+
+    scan_flags = get_flags(cmd_line, ipaddr, ports)
+
     return jsonify(port_scan(ipaddr, ports, scan_flags))
 
 if __name__ == '__main__':
