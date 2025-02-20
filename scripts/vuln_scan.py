@@ -7,7 +7,7 @@ Updated: 2/20/25
 
 import nmap
 
-def run_vuln_scan(ipaddr):
+def vuln_scanner(ipaddr):
     __script_flag__ = '--script vuln'
     
     vs = nmap.PortScanner()
