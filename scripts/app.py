@@ -1,5 +1,6 @@
 from flask import Flask, render_template, jsonify, request
 from net_scan import port_scan, get_flags
+from vuln_scan import vuln_scanner
 
 app = Flask(__name__, template_folder='../User Interface', static_folder='../User Interface/images')
 
@@ -32,6 +33,12 @@ def run_nmap_scan():
     scan_flags = get_flags(cmd_line, ipaddr, ports)
 
     return jsonify(port_scan(ipaddr, ports, scan_flags))
+
+@app.route('/run-vuln-scan/', methods=['GET'])
+def run_vuln_scan():
+    ipaddr = request.args.get('ip', '192.168.2.241')
+
+    return jsonify(vuln_scanner(ipaddr))
 
 if __name__ == '__main__':
     app.run(debug=True)
