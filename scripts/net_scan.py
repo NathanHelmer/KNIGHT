@@ -1,7 +1,7 @@
 # net_scan.py
 # Runs an nmap scan after taking an IP address and port range as input. Must be run with administrator privileges.
 # Created: 1/20/25
-# Updated: 2/2/25
+# Updated: 2/19/25
 
 import nmap
 
@@ -45,3 +45,14 @@ def run_scans():
     port_scan(test_range, test_ports, 'ping')
     port_scan(test_range, test_ports, 'quick')
     port_scan(test_range, test_ports, 'intense')
+
+# Precondition: line is a string for the command line command, ipaddr is a string of the target IP range, and
+#               ports is a string of the port range
+# Postcondition: returns a string of the optional scan flags from the command
+def get_flags(line, ipaddr, ports):
+    line = line.replace(ipaddr, '')
+    line = line.replace(ports, '')
+    line = line.replace('-p', '')
+    line = line[5:]
+
+    return line
