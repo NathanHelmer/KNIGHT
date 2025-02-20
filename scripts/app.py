@@ -13,7 +13,11 @@ def run_nmap_page():
 
 @app.route('/nmap-logs/')
 def run_nmap_logs_page():
-    return render_template('nmap-logs.html') 
+    return render_template('nmap-logs.html')
+
+@app.route('/vuln-scans/')
+def run_vuln_scans_page():
+    return render_template('vuln-scans.html')
 
 @app.route('/help/')
 def run_help_page():
