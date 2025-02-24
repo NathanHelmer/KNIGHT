@@ -43,7 +43,7 @@ def run_vuln_scan():
 @app.route('/get-nmap-results/', methods=['GET'])
 def get_nmap_results():
     try:
-        with open("latest_nmap_results.txt", "r") as file:
+        with open("./results/latest_nmap_results.txt", "r") as file:
             content = file.read()
         return content, 200, {'Content-Type': 'text/plain'}
     except FileNotFoundError:

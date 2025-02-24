@@ -2,4 +2,6 @@
 venv/
 .venv/
 #ignore results files
-script/results
+scripts/results
+#ignore pycache
+scripts/__pycache__
