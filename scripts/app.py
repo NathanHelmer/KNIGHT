@@ -40,5 +40,15 @@ def run_vuln_scan():
 
     return jsonify(vuln_scanner(ipaddr))
 
+@app.route('/get-nmap-results/', methods=['GET'])
+def get_nmap_results():
+    try:
+        with open("latest_nmap_results.txt", "r") as file:
+            content = file.read()
+        return content, 200, {'Content-Type': 'text/plain'}
+    except FileNotFoundError:
+        return "No scan results available yet.", 200, {'Content-Type': 'text/plain'}
+
+
 if __name__ == '__main__':
     app.run(debug=True)

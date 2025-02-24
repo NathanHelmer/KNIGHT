@@ -252,14 +252,13 @@
         portCheckbox.addEventListener('change', updateCommandLine);
         portInput.addEventListener('input', updateCommandLine);
 
-        async function loadResults(response) {
+        async function loadResults() {
             try {
-                const text = await response.json();
-                outputBox.textContent = JSON.stringify(text, null, 2) || 'No results available.';
-                scanExecuted = true;
+                const response = await fetch('/get-nmap-results/');
+                const text = await response.text();
+                outputBox.textContent = text || 'No results available.';
             } catch (error) {
                 outputBox.textContent = 'Failed to load results.';
-                scanExecuted = false;
             }
         }
 
@@ -300,16 +299,12 @@ runScanButton.addEventListener('click', async () => {
         scanStatus.textContent = 'Running scan...';
         scanStatus.style.color = 'orange';
 
-        const response = await fetch(url, {
-            method: 'GET',
-            headers: { 'Content-Type': 'application/json' },
-            //body: JSON.stringify({ command: commandLine.value }),
-        });
+        const response = await fetch(url, {});
 
         if (response.ok) {
             scanStatus.textContent = 'Scan completed!';
             scanStatus.style.color = 'green';
-            loadResults(response); // Load the scan results after it runs
+            loadResults(); // Load the scan results after it runs
         } else {
             throw new Error('Scan failed');
         }
