@@ -13,7 +13,7 @@ def port_scan(ipaddr, port_nums='1-100', scan_flags=''):
 
     scan_output = nm.scan(ipaddr, port_nums, scan_flags)
 
-    map_out = open('latest_nmap_results.txt', 'w')
+    map_out = open('./results/latest_nmap_results.txt', 'w')
 
     map_out.write('nmap {} -p {} {}\n'.format(scan_flags, port_nums, ipaddr))
 
