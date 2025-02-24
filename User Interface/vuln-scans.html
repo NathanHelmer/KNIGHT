@@ -266,7 +266,7 @@ portInput.addEventListener('input', updateRunButton);
 runScanButton.addEventListener('click', async () => {
     const ip = ipInput.value.trim();
     const ports = portInput.value;
-    const url = `/run-nmap-scan/?ip=${encodeURIComponent(ip)}&ports=${encodeURIComponent(ports)}`;
+    const url = `/run-vuln-scan/?ip=${encodeURIComponent(ip)}&ports=${encodeURIComponent(ports)}`;
    
     try {
         scanStatus.textContent = 'Running scan...';
