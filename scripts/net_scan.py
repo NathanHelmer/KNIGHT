@@ -4,6 +4,7 @@
 # Updated: 2/24/25
 
 import nmap
+from osdetection import nmap_results_path
 
 # Precondition: ipaddr is a string for the IP address of the form '255.255.255.255' and port_nums is a string for
 # the port range of the form 'x-y'
@@ -13,7 +14,9 @@ def port_scan(ipaddr, port_nums='1-100', scan_flags=''):
     
     scan_output = nm.scan(ipaddr, port_nums, scan_flags)
 
-    map_out = open('./results/latest_nmap_results.txt', 'w')
+    path = nmap_results_path()
+
+    map_out = open(path, 'w')
 
     map_out.write('nmap {} -p {} {}\n'.format(scan_flags, port_nums, ipaddr))
 
