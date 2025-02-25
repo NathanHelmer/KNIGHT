@@ -3,17 +3,19 @@
 # Created: 1/20/25
 # Updated: 2/24/25
 
-import nmap
+import nmap, os
 
 # Precondition: ipaddr is a string for the IP address of the form '255.255.255.255' and port_nums is a string for
 # the port range of the form 'x-y'
 # Postcondition: writes nmap scan results to nmap_results.txt
 def port_scan(ipaddr, port_nums='1-100', scan_flags=''):    
     nm = nmap.PortScanner()
-
+    
     scan_output = nm.scan(ipaddr, port_nums, scan_flags)
 
-    map_out = open('./results/latest_nmap_results.txt', 'w')
+    path = '.' + os.path.sep + 'results' + os.path.sep + 'latest_nmap_results.txt'
+
+    map_out = open(path, 'w')
 
     map_out.write('nmap {} -p {} {}\n'.format(scan_flags, port_nums, ipaddr))
 
