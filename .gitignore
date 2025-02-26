@@ -3,5 +3,7 @@ venv/
 .venv/
 #ignore results files
 scripts/results
+scripts\results
 #ignore pycache
 scripts/__pycache__
+scripts\__pycache__
