@@ -45,8 +45,9 @@ latestnmappath = nmap_results_path()
 
 @app.route('/get-nmap-results/', methods=['GET'])
 def get_nmap_results():
+    path = nmap_results_path()
     try:
-        with open(latestnmappath, "r") as file:
+        with open(path, "r") as file:
             content = file.read()
         return content, 200, {'Content-Type': 'text/plain'}
     except FileNotFoundError:
