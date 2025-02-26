@@ -39,16 +39,6 @@ def port_scan(ipaddr, port_nums='1-100', scan_flags=''):
 
     return scan_output
 
-# Precondition: none
-# Postcondition: runs sample scans and ouputs the results to nmap_results.txt
-def run_scans():
-    test_range = '127.0.0.1'
-    test_ports = '1-6000'
-
-    port_scan(test_range, test_ports, 'ping')
-    port_scan(test_range, test_ports, 'quick')
-    port_scan(test_range, test_ports, 'intense')
-
 # Precondition: line is a string for the command line command, ipaddr is a string of the target IP range, and
 #               ports is a string of the port range
 # Postcondition: returns a string of the optional scan flags from the command
