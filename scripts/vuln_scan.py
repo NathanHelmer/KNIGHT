@@ -16,4 +16,7 @@ def vuln_scanner(ipaddr):
     vs = nmap.PortScanner()
     vuln_output = vs.scan(ipaddr, '1-1000', __script_flag__)
 
+    vuln_out = open('latest_vuln_results.txt')
+    vuln_out.write
+
     return vuln_output

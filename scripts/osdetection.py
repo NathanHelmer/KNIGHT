@@ -1,7 +1,8 @@
 import sys
+import os
 
 def nmap_results_path():
-    windowspath = '\results\latest_nmap_results.txt'
+    windowspath = os.path.abspath('scripts\\results\\latest_nmap_results.txt')
     linuxpath = './results/latest_nmap_results.txt'
     if (sys.platform == 'linux'):
         return linuxpath
