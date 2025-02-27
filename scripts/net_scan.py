@@ -31,7 +31,7 @@ def port_scan(ipaddr, port_nums='1-100', scan_flags=''):
             list_port = nm[host][protocol].keys()
 
             if '-sV' in scan_flags:
-                map_out.write("Port\tState\tService\tVersion\n")
+                map_out.write("Port\tState\tService\t\tVersion\n")
             else:
                 map_out.write("Port\tState\n")
 
