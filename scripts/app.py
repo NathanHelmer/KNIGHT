@@ -3,7 +3,7 @@ from net_scan import port_scan, get_flags
 from vuln_scan import vuln_scanner
 from osdetection import nmap_results_path
 
-app = Flask(__name__, template_folder='../User Interface', static_folder='../User Interface/images')
+app = Flask(__name__, template_folder='../UserInterface', static_folder='../UserInterface/images')
 
 @app.route('/')
 def home():
