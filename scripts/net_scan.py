@@ -39,7 +39,7 @@ def port_scan(ipaddr, port_nums='1-100', scan_flags=''):
             for port in list_port:
                 # Check for the -sV flag and output the service name if it is used
                 if '-sV' in scan_flags:
-                    map_out.write("{}\t{}\t{}\t{}\n".format(port, nm[host][protocol][port]['state'], nm[host][protocol][port]['name'], nm[host][protocol][port]['version']))
+                    map_out.write("{}\t{}\t{}\t{} {}\n".format(port, nm[host][protocol][port]['state'], nm[host][protocol][port]['name'], nm[host][protocol][port]['product'], nm[host][protocol][port]['version']))
                 else:
                     map_out.write("{}\t{}\n".format(port, nm[host][protocol][port]['state']))
     
