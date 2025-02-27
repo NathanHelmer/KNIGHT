@@ -30,13 +30,18 @@ def port_scan(ipaddr, port_nums='1-100', scan_flags=''):
 
             list_port = nm[host][protocol].keys()
 
+            if '-sV' in scan_flags:
+                map_out.write("Port\tState\tService\tVersion\n")
+            else:
+                map_out.write("Port\tState\n")
+
             # Loop through found ports and print out port information
             for port in list_port:
                 # Check for the -sV flag and output the service name if it is used
                 if '-sV' in scan_flags:
-                    map_out.write("Port: {}\tState: {}\tService: {}\n".format(port, nm[host][protocol][port]['state'], nm[host][protocol][port]['name']))
+                    map_out.write("{}\t{}\t{}\t{}\n".format(port, nm[host][protocol][port]['state'], nm[host][protocol][port]['name'], nm[host][protocol][port]['version']))
                 else:
-                    map_out.write("Port: {}\tState: {}\n".format(port, nm[host][protocol][port]['state']))
+                    map_out.write("{}\t{}\n".format(port, nm[host][protocol][port]['state']))
     
     map_out.write('\n')
 
