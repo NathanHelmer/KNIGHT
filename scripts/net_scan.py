@@ -1,7 +1,7 @@
 # net_scan.py
 # Runs an nmap scan after taking an IP address and port range as input. Must be run with administrator privileges.
 # Created: 1/20/25
-# Updated: 2/25/25
+# Updated: 2/27/25
 
 import nmap
 from osdetection import nmap_results_path
