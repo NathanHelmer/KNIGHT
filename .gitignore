@@ -7,3 +7,4 @@ scripts\results
 #ignore pycache
 scripts/__pycache__
 scripts\__pycache__
+scripts/__pycache__/net_scan.cpython-312.pyc

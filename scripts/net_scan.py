@@ -31,17 +31,17 @@ def port_scan(ipaddr, port_nums='1-100', scan_flags=''):
             list_port = nm[host][protocol].keys()
 
             if '-sV' in scan_flags:
-                map_out.write("Port\tState\tService\t\tVersion\n")
+                map_out.write("{: <5} {: <10} {: <20} {: <20}\n".format('Port', 'State', 'Service', 'Version'))
             else:
-                map_out.write("Port\tState\n")
+                map_out.write("{: <5} {: <10}".format('Port', 'Service'))
 
             # Loop through found ports and print out port information
             for port in list_port:
                 # Check for the -sV flag and output the service name if it is used
                 if '-sV' in scan_flags:
-                    map_out.write("{}\t{}\t{}\t{} {}\n".format(port, nm[host][protocol][port]['state'], nm[host][protocol][port]['name'], nm[host][protocol][port]['product'], nm[host][protocol][port]['version']))
+                    map_out.write("{: <5} {: <10} {: <20} {: <20} {}\n".format(port, nm[host][protocol][port]['state'], nm[host][protocol][port]['name'], nm[host][protocol][port]['product'], nm[host][protocol][port]['version']))
                 else:
-                    map_out.write("{}\t{}\n".format(port, nm[host][protocol][port]['state']))
+                    map_out.write("{: <5} {: <20}\n".format(port, nm[host][protocol][port]['state']))
     
     map_out.write('\n')
 
