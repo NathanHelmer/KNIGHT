@@ -43,7 +43,8 @@ def port_scan(ipaddr, port_nums='1-100', scan_flags=''):
                 else:
                     map_out.write("{: <5} {: <20}\n".format(port, nm[host][protocol][port]['state']))
         
-        map_out.write("Host OS Guess: {}\n".format(nm[host]['osmatch']))
+        if '-O' in scan_flags:
+            map_out.write("Host OS Guess: {}\n".format(nm[host]['osmatch']))
     
     map_out.write('\n')
 
