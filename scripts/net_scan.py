@@ -42,6 +42,8 @@ def port_scan(ipaddr, port_nums='1-100', scan_flags=''):
                     map_out.write("{: <5} {: <10} {: <20} {: <20} {}\n".format(port, nm[host][protocol][port]['state'], nm[host][protocol][port]['name'], nm[host][protocol][port]['product'], nm[host][protocol][port]['version']))
                 else:
                     map_out.write("{: <5} {: <20}\n".format(port, nm[host][protocol][port]['state']))
+        
+        map_out.write("Host OS Guess: {}\n".format(nm[host]['osmatch']))
     
     map_out.write('\n')
 
