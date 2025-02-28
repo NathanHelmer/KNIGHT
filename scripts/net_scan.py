@@ -33,7 +33,7 @@ def port_scan(ipaddr, port_nums='1-100', scan_flags=''):
             if '-sV' in scan_flags:
                 map_out.write("{: <5} {: <10} {: <20} {: <20}\n".format('Port', 'State', 'Service', 'Version'))
             else:
-                map_out.write("{: <5} {: <10}".format('Port', 'Service'))
+                map_out.write("{: <5} {: <10}\n".format('Port', 'Service'))
 
             # Loop through found ports and print out port information
             for port in list_port:
