@@ -6,6 +6,7 @@ Updated: 2/23/25
 '''
 
 import nmap
+from osdetection import vuln_results_path
 
 
 # Precondition: ipaddr is a string of an IP address or IP address range.
@@ -16,7 +17,9 @@ def vuln_scanner(ipaddr):
     vs = nmap.PortScanner()
     vuln_output = vs.scan(ipaddr, '1-1000', __script_flag__)
 
-    vuln_out = open('latest_vuln_results.txt')
+    path = vuln_results_path()
+
+    vuln_out = open(path)
     vuln_out.write
 
     return vuln_output
