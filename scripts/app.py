@@ -40,7 +40,7 @@ def run_vuln_scan():
     ipaddr = request.args.get('ip', '192.168.2.241')
     ports = request.args.get('ports', '1-1000')
 
-    return jsonify(vuln_scanner(ipaddr))
+    return jsonify(vuln_scanner(ipaddr, ports))
 
 latestnmappath = nmap_results_path()
 
