@@ -28,7 +28,7 @@ def run_help_page():
 @app.route('/run-nmap-scan/', methods=['GET'])
 def run_nmap_scan():
     ipaddr = request.args.get('ip', '192.168.2.241')
-    ports = request.args.get('ports', '1-6000')
+    ports = request.args.get('ports', '1-1000')
     cmd_line = request.args.get('cmd', 'nmap 127.0.0.1')
 
     scan_flags = get_flags(cmd_line, ipaddr, ports)
@@ -38,6 +38,7 @@ def run_nmap_scan():
 @app.route('/run-vuln-scan/', methods=['GET'])
 def run_vuln_scan():
     ipaddr = request.args.get('ip', '192.168.2.241')
+    ports = request.args.get('ports', '1-1000')
 
     return jsonify(vuln_scanner(ipaddr))
 
