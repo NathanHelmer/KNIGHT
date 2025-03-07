@@ -2,7 +2,7 @@
 vuln_scan.py
 Description: Runs an nmap vulnerability scan using a script and returns the results.
 Created 2/20/25
-Updated: 3/3/25
+Updated: 3/5/25
 '''
 
 import nmap
@@ -20,6 +20,18 @@ def vuln_scanner(ipaddr, ports='1-1000'):
     path = vuln_results_path()
 
     vuln_out = open(path, 'w')
+
+    for host in vs.all_hosts():
+        vuln_out.write('---------------------------------\n')
+        vuln_out.write("Host: {} ({})\n".format(host, vs[host].hostname()))
+        vuln_out.write("State: {}\n".format(vs[host].state()))
+
+        for protocol in vs.all_hosts():
+            list_port = nm[host][protocol].keys()
+
+            for port in list_port:
+                vuln_out.write("Port: {}\n".format(vs[host][protocol][port]))
+
     vuln_out.close()
 
     return vuln_output
