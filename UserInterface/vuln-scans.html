@@ -169,7 +169,6 @@
 
     <script>
         const ipInput = document.getElementById('ip-input');
-        const quickOptions = document.getElementById('quick-options-select');
         const verbose = document.getElementById('verbose');
         const osDetection = document.getElementById('os-detection');
         const serviceDetection = document.getElementById('service-detection');
@@ -188,17 +187,9 @@
         function updateCommandLine() {
             const ip = ipInput.value.trim();
 
-            // If a quick option is selected, use it exclusively
-            const quickOption = quickOptions.value;
-            if (quickOption) {
-                commandLine.value = `nmap ${quickOption} ${ip}`.trim();
-                return;
-            }
-
-            // Otherwise, build the custom command
-            const options = [verbose.checked ? verbose.value : '', osDetection.checked ? osDetection.value : '', serviceDetection.checked ? serviceDetection.value : '', speed.value].filter(Boolean).join(' ');
+            // Show the custom command
             const ports = portCheckbox.checked ? `-p ${portInput.value.trim()}` : '';
-            commandLine.value = `nmap ${options} ${ports} ${ip}`.trim();
+            commandLine.value = `nmap --sctipt=vuln-scan ${ports} ${ip}`.trim();
         }
 
         function clearOutputBox() {
@@ -245,11 +236,6 @@ function updateRunButton() {
 
 // Add event listeners to update the run button when inputs change
 ipInput.addEventListener('input', updateRunButton);
-quickOptions.addEventListener('change', updateRunButton);
-verbose.addEventListener('change', updateRunButton);
-osDetection.addEventListener('change', updateRunButton);
-serviceDetection.addEventListener('change', updateRunButton);
-speed.addEventListener('change', updateRunButton);
 portCheckbox.addEventListener('change', updateRunButton);
 portInput.addEventListener('input', updateRunButton);
 
