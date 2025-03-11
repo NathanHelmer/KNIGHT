@@ -37,8 +37,6 @@ def run_nmap_scan():
     if ipaddr == '':
         ipaddr = '127.0.0.1'
 
-    print(ports)
-
     scan_flags = get_flags(cmd_line, ipaddr, ports)
 
     return jsonify(port_scan(ipaddr, ports, scan_flags))
