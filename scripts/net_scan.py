@@ -1,7 +1,7 @@
 # net_scan.py
 # Runs an nmap scan after taking an IP address and port range as input. Must be run with administrator privileges.
 # Created: 1/20/25
-# Updated: 2/27/25
+# Updated: 3/11/25
 
 import nmap
 from osdetection import nmap_results_path
@@ -12,11 +12,23 @@ from osdetection import nmap_results_path
 def port_scan(ipaddr, port_nums='1-1000', scan_flags=''):    
     nm = nmap.PortScanner()
 
-    scan_output = nm.scan(ipaddr, port_nums, scan_flags)
-
-    path = nmap_results_path()
-
+    path = nmap_results_path() 
+    
     map_out = open(path, 'w')
+    
+    # Handle a ping scan
+    if '-sP' in scan_flags:
+        nm.scan(hosts=ipaddr, arguments=scan_flags)
+
+        map_out.write('nmap {} {}\n'.format(scan_flags, ipaddr))
+
+        for host in nm.all_hosts():
+            map_out.write('---------------------------------\n')
+            map_out.write("Host: {} ({})\n".format(host, nm[host].hostname()))
+            map_out.write("State: {}\n".format(nm[host].state()))
+            return
+
+    scan_output = nm.scan(ipaddr, port_nums, scan_flags)
 
     map_out.write('nmap {} -p {} {}\n'.format(scan_flags, port_nums, ipaddr))
 
