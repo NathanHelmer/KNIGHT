@@ -3,7 +3,7 @@
 # Created: 1/20/25
 # Updated: 3/11/25
 
-import nmap
+import nmap, textwrap
 from osdetection import nmap_results_path
 
 # Precondition: ipaddr is a string for the IP address of the form '255.255.255.255' and port_nums is a string for
@@ -56,11 +56,18 @@ def port_scan(ipaddr, port_nums='1-1000', scan_flags=''):
                     map_out.write("{: <5} {: <20}\n".format(port, nm[host][protocol][port]['state']))
         
         if '-O' in scan_flags:
-            map_out.write("{: <30} {: <0}\n".format('\nHost OS Guess ', ' Accuracy'))
-            i = 0
+            map_out.write("{: <30} {}\n".format('\nHost OS Guess', ' Accuracy')) 
+
             for os_match in nm[host]['osmatch']:
-                map_out.write("{: <30} {: <0}%\n".format(nm[host]['osmatch'][i]['name'], nm[host]['osmatch'][i]['accuracy']))
-                i = i + 1
+                os_name = textwrap.fill(os_match['name'], width=30)  # Wrap long names to fit within 30 characters
+                accuracy = os_match['accuracy']
+
+                lines = os_name.split('\n')
+
+                map_out.write("{: <30} {}%\n".format(lines[0], accuracy))
+
+                for line in lines[1:]:
+                    map_out.write("{}\n".format(line)) 
         
         
     
