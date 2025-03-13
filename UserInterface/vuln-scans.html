@@ -151,7 +151,8 @@
             <!-- Command Line Display -->
             <textarea id="command-line" rows="2" readonly></textarea>
             
-            <button id="run-scan-button" disabled>Run Scan</button>
+            <!-- <button id="run-scan-button" disabled>Run Scan</button> -->
+            <button id="run-scan-button">Run Scan</button>
             <p id="scan-status">Scan not ready</p>
         </div>
 
@@ -189,7 +190,7 @@
 
             // Show the custom command
             const ports = portCheckbox.checked ? `-p ${portInput.value.trim()}` : '';
-            commandLine.value = `nmap --sctipt=vuln-scan ${ports} ${ip}`.trim();
+            commandLine.value = `nmap --script=vuln-scan ${ports} ${ip}`.trim();
         }
 
         function clearOutputBox() {
@@ -199,18 +200,19 @@
         }
 
         ipInput.addEventListener('input', updateCommandLine);
-        quickOptions.addEventListener('change', updateCommandLine);
-        verbose.addEventListener('change', updateCommandLine);
-        osDetection.addEventListener('change', updateCommandLine);
-        serviceDetection.addEventListener('change', updateCommandLine);
-        speed.addEventListener('change', updateCommandLine);
+        //quickOptions.addEventListener('change', updateCommandLine);
+        //verbose.addEventListener('change', updateCommandLine);
+        //osDetection.addEventListener('change', updateCommandLine);
+        //serviceDetection.addEventListener('change', updateCommandLine);
+        //speed.addEventListener('change', updateCommandLine);
         portCheckbox.addEventListener('change', updateCommandLine);
         portInput.addEventListener('input', updateCommandLine);
 
-        async function loadResults(response) {
+        async function loadResults() {
             try {
-                const text = await response.json();
-                outputBox.textContent = JSON.stringify(text, null, 2) || 'No results available.';
+                const response = await fetch('/get-vuln-results/');
+                const text = await response.text();
+                outputBox.textContent = text || 'No results available.';
                 scanExecuted = true;
             } catch (error) {
                 outputBox.textContent = 'Failed to load results.';
@@ -244,22 +246,21 @@ runScanButton.addEventListener('click', async () => {
     const ip = ipInput.value.trim();
     const ports = portInput.value;
     const url = `/run-vuln-scan/?ip=${encodeURIComponent(ip)}&ports=${encodeURIComponent(ports)}`;
-   
+    console.log("Run Button Clicked");
+
     try {
         scanStatus.textContent = 'Running scan...';
         scanStatus.style.color = 'orange';
-
-        const response = await fetch(url, {
-            method: 'GET',
-            headers: { 'Content-Type': 'application/json' },
-            //body: JSON.stringify({ command: commandLine.value }),
-        });
+        console.log("Run Button Try");
+        const response = await fetch(url, {});
 
         if (response.ok) {
+            console.log("Run Button Response OK");
             scanStatus.textContent = 'Scan completed!';
             scanStatus.style.color = 'green';
-            loadResults(response); // Load the scan results after it runs
+            loadResults(); // Load the scan results after it runs
         } else {
+            console.log("Run Button Response Failed");
             throw new Error('Scan failed');
         }
     } catch (error) {

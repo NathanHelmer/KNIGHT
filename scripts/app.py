@@ -1,7 +1,7 @@
 from flask import Flask, render_template, jsonify, request
 from net_scan import port_scan, get_flags
 from vuln_scan import vuln_scanner
-from osdetection import nmap_results_path
+from osdetection import nmap_results_path, vuln_results_path
 
 app = Flask(__name__, template_folder='../UserInterface', static_folder='../UserInterface/images')
 
@@ -43,7 +43,7 @@ def run_nmap_scan():
 
 @app.route('/run-vuln-scan/', methods=['GET'])
 def run_vuln_scan():
-    ipaddr = request.args.get('ip', '192.168.2.241')
+    ipaddr = request.args.get('ip', '127.0.0.1')
     ports = request.args.get('ports', '1-1000')
 
     return jsonify(vuln_scanner(ipaddr, ports))
@@ -51,6 +51,16 @@ def run_vuln_scan():
 @app.route('/get-nmap-results/', methods=['GET'])
 def get_nmap_results():
     path = nmap_results_path()
+    try:
+        with open(path, "r") as file:
+            content = file.read()
+        return content, 200, {'Content-Type': 'text/plain'}
+    except FileNotFoundError:
+        return "No scan results available yet.", 200, {'Content-Type': 'text/plain'}
+    
+@app.route('/get-vuln-results/', methods=['GET'])
+def get_vuln_results():
+    path = vuln_results_path()
     try:
         with open(path, "r") as file:
             content = file.read()

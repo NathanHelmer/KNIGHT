@@ -15,7 +15,8 @@ def vuln_scanner(ipaddr, ports='1-1000'):
     __script_flag__ = '--script vuln'
     
     vs = nmap.PortScanner()
-    vuln_output = vs.scan(ipaddr, ports, __script_flag__)
+    #vuln_output = vs.scan(ipaddr, ports, __script_flag__)
+    vuln_output = "test"
 
     path = vuln_results_path()
 
