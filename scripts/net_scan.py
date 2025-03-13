@@ -70,7 +70,6 @@ def port_scan(ipaddr, port_nums='1-1000', scan_flags=''):
                     map_out.write("{}\n".format(line)) 
         
         
-    
     map_out.write('\n')
 
     map_out.close()
