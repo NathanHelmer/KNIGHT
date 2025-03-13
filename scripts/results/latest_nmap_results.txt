@@ -1,4 +1,12 @@
-nmap -sP  scanme.nmap.org
+nmap -sV -p 1-1000 127.0.0.1
 ---------------------------------
-Host: 45.33.32.156 (scanme.nmap.org)
+Host: 127.0.0.1 (localhost)
 State: up
+Protocol: tcp
+Port  State      Service              Version             
+135   open       msrpc                Microsoft Windows RPC 
+137   filtered   netbios-ns                                
+445   open       microsoft-ds                              
+902   open       vmware-auth          VMware Authentication Daemon 1.10
+912   open       vmware-auth          VMware Authentication Daemon 1.0
+

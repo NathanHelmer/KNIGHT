@@ -17,5 +17,4 @@ def run_vulns():
 
     vuln_scanner(test_range, test_ports)
 
-run_scans()
 run_vulns()
