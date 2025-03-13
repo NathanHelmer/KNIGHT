@@ -11,3 +11,7 @@ scripts/__pycache__/net_scan.cpython-312.pyc
 scripts/__pycache__/net_scan.cpython-312.pyc
 /scripts/__pycache__
 scripts/results/latest_nmap_results.txt
+scripts/__pycache__/net_scan.cpython-312.pyc
+scripts/__pycache__/vuln_scan.cpython-312.pyc
+scripts/results/latest_nmap_results.txt
+scripts/results/latest_vuln_results.txt
