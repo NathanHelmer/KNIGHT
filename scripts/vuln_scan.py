@@ -12,8 +12,8 @@ def vuln_scanner(ipaddr, ports='1-1000'):
     __script_flag__ = '--script vuln'
     
     vs = nmap.PortScanner()
-    #vuln_output = vs.scan(ipaddr, ports, __script_flag__)
-    vuln_output = 'test'
+    vuln_output = vs.scan(ipaddr, ports, __script_flag__)
+    #vuln_output = 'test'
 
     path = vuln_results_path()
 
@@ -24,16 +24,17 @@ def vuln_scanner(ipaddr, ports='1-1000'):
         vuln_out.write("Host: {} ({})\n".format(host, vs[host].hostname()))
         vuln_out.write("State: {}\n".format(vs[host].state()))
 
-        for protocol in vs.all_hosts():
-            list_port = vs[host][protocol].keys()
+        list_port = vs[host]['tcp'].keys()
 
-            for port in list_port:
-                vuln_out.write("Port: {}\n".format(vs[host][protocol][port]))
-
-                list_scans = vs[host][protocol][port]['script'].keys()
+        for port in list_port:
+            vuln_out.write("Port: {}\n".format(port))
+            
+            try:
+                list_scans = vs[host]['tcp'][port]['script'].keys()
                 for scan in list_scans:
-                    if 'CVE' in vs[host][protocol][port]['script'][scan]:
-                        vuln_out.write("Vulnerability: {}\n".format(vs[host][protocol][port]['script'][scan]))
+                    vuln_out.write("Vulnerability: {}\n".format(vs[host]['tcp'][port]['script'][scan]))
+            except:
+                print("No vulnerabilities found\n")
 
     vuln_out.write('END\n')
     vuln_out.close()
