@@ -1,4 +1,9 @@
-# Automated testing
+'''
+test.py
+Description: Automated testing for the KNIGHT backend
+Created: 2/26/25
+Updated: 3/18/25
+'''
 
 from net_scan import *
 from vuln_scan import *
