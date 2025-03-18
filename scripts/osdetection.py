@@ -1,3 +1,10 @@
+'''
+osdetection.py
+Description: returns file paths given the host's OS
+Created: 2/25/25
+Updated: 3/18/25
+'''
+
 import sys
 import os
 
