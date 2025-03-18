@@ -1,7 +1,9 @@
-#vuln_scan.py
-#Description: Runs an nmap vulnerability scan using a script and returns the results.
-#Created 2/20/25
-#Updated: 3/15/25
+'''
+vuln_scan.py
+Description: Runs an nmap vulnerability scan using a script and returns the results.
+Created 2/20/25
+Updated: 3/18/25
+'''
 
 import nmap
 from osdetection import vuln_results_path
