@@ -1,3 +1,9 @@
+'''
+app.py
+Description: runs Flask applications at the routes specified in '@app.route()'
+Created: 2/7/25
+Updated: 3/18/25
+'''
 from flask import Flask, render_template, jsonify, request
 from net_scan import port_scan, get_flags
 from vuln_scan import vuln_scanner
