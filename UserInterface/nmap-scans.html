@@ -259,8 +259,6 @@
             }
             try {
                 const response = await fetch(`/get-nmap-results/?path=${encodeURIComponent(path)}`);
-                //const response = await fetch(`/get-nmap-results/`);
-
                 const text = await response.text();
                 outputBox.textContent = text || 'No results available.';
             } catch (error) {
