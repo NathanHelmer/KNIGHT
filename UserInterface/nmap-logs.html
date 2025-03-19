@@ -87,7 +87,7 @@
     <script>
         async function loadLogs() {
             try {
-                const response = await fetch("result/nmap");
+                const response = await fetch("result/nmap/");
                 const logs = await response.json();
                 
                 const tableBody = document.getElementById("logTableBody");
