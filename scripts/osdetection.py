@@ -24,6 +24,7 @@ def nmap_results_path():
     if (sys.platform == 'linux'):
         if not os.path.exists(linuxdir):
             os.makedirs(linuxdir)
+
         return linuxpath
     else:
         if not os.path.exists(windowsdir):
