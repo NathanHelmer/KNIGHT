@@ -13,7 +13,7 @@ import datetime
 #NOTE: When running the program on linux, run it from ~/PATHTOFLASK --app ~/PATHTOAPP.PY run
 
 def nmap_results_path():
-    timestamp = datetime.datetime.now()
+    timestamp = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")  # Avoids colons so windows doesn't error
 
     windowspath = os.path.abspath(f'results\\nmap\\{timestamp}.txt')
     linuxpath = os.path.abspath(f'./results/nmap/{timestamp}.txt')
@@ -24,7 +24,6 @@ def nmap_results_path():
     if (sys.platform == 'linux'):
         if not os.path.exists(linuxdir):
             os.makedirs(linuxdir)
-
         return linuxpath
     else:
         if not os.path.exists(windowsdir):
