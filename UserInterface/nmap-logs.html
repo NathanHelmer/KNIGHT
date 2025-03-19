@@ -87,7 +87,7 @@
     <script>
         async function loadLogs() {
             try {
-                const response = await fetch("result/nmap/");
+                const response = await fetch("/get-all-nmap-logs/");
                 const logs = await response.json();
                 
                 const tableBody = document.getElementById("logTableBody");
@@ -97,7 +97,7 @@
                     const row = document.createElement("tr");
                     row.innerHTML = `
                         <td>${log.Type || "Unknown"}</td>
-                        <td>${log.Date || "Unknown"}</td>
+                        <td>${log.Name || "Unknown"}</td>
                     `;
                     tableBody.appendChild(row);
                 });

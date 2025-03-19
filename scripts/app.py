@@ -4,6 +4,7 @@ Description: runs Flask applications at the routes specified in '@app.route()'
 Created: 2/7/25
 Updated: 3/18/25
 '''
+import os
 from flask import Flask, render_template, jsonify, request
 from net_scan import port_scan, get_flags
 from vuln_scan import vuln_scanner
@@ -77,6 +78,18 @@ def get_vuln_results():
         return content, 200, {'Content-Type': 'text/plain'}
     except FileNotFoundError:
         return "No scan results available yet.", 200, {'Content-Type': 'text/plain'}
+
+@app.route('/get-all-nmap-logs/', methods=['GET'])
+def get_all_nmap_logs():
+    print('getnmap')
+    LOGS_DIR = os.path.abspath("./results/nmap/")
+    try:
+        files = os.listdir(LOGS_DIR)
+        logs = [{"Name": file} for file in files]
+        return jsonify(logs)
+    except Exception as e:
+        print("error")
+        return jsonify({"error": str(e)}), 500
 
 
 if __name__ == '__main__':
