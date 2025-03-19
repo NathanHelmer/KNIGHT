@@ -14,11 +14,20 @@ import datetime
 
 def nmap_results_path():
     timestamp = datetime.datetime.now()
+
     windowspath = os.path.abspath(f'results\\nmap\\{timestamp}.txt')
     linuxpath = os.path.abspath(f'./results/nmap/{timestamp}.txt')
+    
+    linuxdir = os.path.abspath("./results/nmap/")
+    windowsdir = os.path.abspath("results\\nmap\\")
+
     if (sys.platform == 'linux'):
+        if not os.path.exists(linuxdir):
+            os.makedirs(linuxdir)
         return linuxpath
     else:
+        if not os.path.exists(windowsdir):
+            os.makedirs(windowsdir)
         return windowspath
     
 def vuln_results_path():
