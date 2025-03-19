@@ -7,12 +7,15 @@ Updated: 3/18/25
 
 import sys
 import os
+import datetime
+
 
 #NOTE: When running the program on linux, run it from ~/PATHTOFLASK --app ~/PATHTOAPP.PY run
 
 def nmap_results_path():
-    windowspath = os.path.abspath('scripts\\results\\latest_nmap_results.txt')
-    linuxpath = os.path.abspath('./scripts/results/latest_nmap_results.txt')
+    timestamp = datetime.datetime.now()
+    windowspath = os.path.abspath(f'results\\nmap\\{timestamp}.txt')
+    linuxpath = os.path.abspath(f'./results/nmap/{timestamp}.txt')
     if (sys.platform == 'linux'):
         return linuxpath
     else:

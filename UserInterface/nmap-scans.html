@@ -252,9 +252,15 @@
         portCheckbox.addEventListener('change', updateCommandLine);
         portInput.addEventListener('input', updateCommandLine);
 
-        async function loadResults() {
+        async function loadResults(path) {
+            if (!path) {
+                outputBox.textContent = "File path not available.";
+                return;
+            }
             try {
-                const response = await fetch('/get-nmap-results/');
+                const response = await fetch(`/get-nmap-results/?path=${encodeURIComponent(path)}`);
+                //const response = await fetch(`/get-nmap-results/`);
+
                 const text = await response.text();
                 outputBox.textContent = text || 'No results available.';
             } catch (error) {
@@ -300,11 +306,13 @@ runScanButton.addEventListener('click', async () => {
         scanStatus.style.color = 'orange';
 
         const response = await fetch(url, {});
+        const data = await response.json();
 
         if (response.ok) {
+            const path = data.path;
             scanStatus.textContent = 'Scan completed!';
             scanStatus.style.color = 'green';
-            loadResults(); // Load the scan results after it runs
+            loadResults(path); // Load the scan results after it runs
         } else {
             throw new Error('Scan failed');
         }
