@@ -31,37 +31,13 @@
             text-shadow: 0 0 8px #ff4d4d, 0 0 16px #ff4d4d; 
             transition: transform 0.3s, text-shadow 0.3s;
         }
-        .company-name a:hover {
-            transform: scale(1.1);
-            text-shadow: 0 0 12px #ff4d4d, 0 0 24px #ff4d4d;
-        }
-        .nav-links {
-            display: flex;
-            gap: 20px;
-        }
-        .nav-links a {
-            text-decoration: none;
-            color: #c9d1d9; 
-            font-size: 1em;
-            font-weight: bold;
-            padding: 8px 16px;
-            border-radius: 10px;
-            background: rgba(255, 77, 77, 0.1); 
-            transition: all 0.3s;
-        }
-        .nav-links a:hover {
-            background: rgba(255, 77, 77, 0.2); 
-            color: #ff4d4d; 
-            transform: translateY(-3px); 
-            box-shadow: 0 0 8px #ff4d4d; 
-        }
         .table-container {
             max-height: 300px;
             overflow-y: auto;
             border: 3.5px solid #812e31;
             width: 70%;
             margin-left: auto; 
-  			margin-right: auto;
+            margin-right: auto;
         }
         table {
             width: 100%;
@@ -79,16 +55,12 @@
             text-align: left;
             border: 1px solid #a83739;
         }
-        .indent {
-  			text-indent: 32px;
-		}
         .title{
             text-decoration: none;
             color: #ff4d4d; 
             font-size: 1em;
             font-weight: bold;
             text-shadow: 0 0 8px #ff4d4d, 0 0 16px #ff4d4d; 
-            transition: transform 0.3s, text-shadow 0.3s;
             text-align: center;
         }
     </style>
@@ -96,15 +68,13 @@
 <body>
     {% include 'header.html' %}
     <div class="title">
-        <h1> NMAP SCAN LOGS </h1>
+        <h1> SCAN LOGS </h1>
     </div>
     <div class="table-container">
         <table>
             <thead>
                 <tr>
-                    <th><b>Name</b></th>
                     <th><b>Type</b></th>
-                    <th><b>Target</b></th>
                     <th><b>Date</b></th>
                 </tr>
             </thead>
@@ -117,7 +87,7 @@
     <script>
         async function loadLogs() {
             try {
-                const response = await fetch("http://127.0.0.1:5000/logs");
+                const response = await fetch("result/nmap/");
                 const logs = await response.json();
                 
                 const tableBody = document.getElementById("logTableBody");
@@ -126,9 +96,7 @@
                 logs.forEach(log => {
                     const row = document.createElement("tr");
                     row.innerHTML = `
-                        <td>${log.Name || "Unknown"}</td>
                         <td>${log.Type || "Unknown"}</td>
-                        <td>${log.Target || "Unknown"}</td>
                         <td>${log.Date || "Unknown"}</td>
                     `;
                     tableBody.appendChild(row);
