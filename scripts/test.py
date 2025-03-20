@@ -1,6 +1,6 @@
 '''
 test.py
-Description: Automated testing for the KNIGHT backend
+Description: Automated testing for the KNIGHT UI backend
 Created: 2/26/25
 Updated: 3/18/25
 '''
