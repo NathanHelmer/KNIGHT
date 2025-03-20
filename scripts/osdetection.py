@@ -31,7 +31,7 @@ def nmap_results_path():
         return windowspath
 
 # Precondition: none
-# Postcondition: returns teh file path for vulnerability scan results based on the host OS (Windows or Linux)
+# Postcondition: returns the file path for vulnerability scan results based on the host OS (Windows or Linux)
 def vuln_results_path():
     windowspath = os.path.abspath('scripts\\results\\latest_vuln_results.txt')
     linuxpath = os.path.abspath('./scripts/results/latest_vuln_results.txt')
