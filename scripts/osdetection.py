@@ -3,7 +3,7 @@ osdetection.py
 Description: returns file paths given the host's OS. Note: when running the program in linux, run it
 from ~/PATHTOFLASK --app ~/PATHTOAPP.PY run
 Created: 2/25/25
-Updated: 3/18/25
+Updated: 3/19/25
 '''
 
 import sys
