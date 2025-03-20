@@ -23,5 +23,3 @@ def run_vulns():
     test_ports = '1-1000'
 
     vuln_scanner(test_range, test_ports)
-
-run_vulns()

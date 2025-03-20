@@ -1,6 +1,7 @@
 '''
 osdetection.py
-Description: returns file paths given the host's OS
+Description: returns file paths given the host's OS. Note: when running the program in linux, run it
+from ~/PATHTOFLASK --app ~/PATHTOAPP.PY run
 Created: 2/25/25
 Updated: 3/18/25
 '''
@@ -9,9 +10,8 @@ import sys
 import os
 import datetime
 
-
-#NOTE: When running the program on linux, run it from ~/PATHTOFLASK --app ~/PATHTOAPP.PY run
-
+# Precondition: none
+# Postcondition: returns the file path for Nmap scan results based on the host OS (Windows or Linux)
 def nmap_results_path():
     timestamp = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")  # Avoids colons so windows doesn't error
 
@@ -29,7 +29,9 @@ def nmap_results_path():
         if not os.path.exists(windowsdir):
             os.makedirs(windowsdir)
         return windowspath
-    
+
+# Precondition: none
+# Postcondition: returns teh file path for vulnerability scan results based on the host OS (Windows or Linux)
 def vuln_results_path():
     windowspath = os.path.abspath('scripts\\results\\latest_vuln_results.txt')
     linuxpath = os.path.abspath('./scripts/results/latest_vuln_results.txt')
