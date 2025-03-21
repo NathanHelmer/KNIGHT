@@ -149,7 +149,7 @@
 
     <script>
         const outputBox = document.getElementById('output');
-        async function loadResults(file) {
+        async function loadNmapResults(file) {
             if (!file) {
                 outputBox.textContent = "File not available.";
                 return;
@@ -171,16 +171,41 @@
                 outputBox.textContent = "Failed to load results.";
             }
         }
+        async function loadVulnResults(file) {
+            if (!file) {
+                outputBox.textContent = "File not available.";
+                return;
+            }
+            try {
+                const dirResponse = await fetch(`/get-vuln-dir/`);
+                const dirData = await dirResponse.json();
+                if (!dirData.vuln_logs_dir) {
+                    console.error("Failed to get Vuln logs directory.");
+                    outputBox.textContent = "Directory not available.";
+                    return;
+                }
+                dir = dirData.vuln_logs_dir;
+                const path = dir + file;
+                const response = await fetch(`/get-vuln-results/?path=${encodeURIComponent(path)}`);
+                const text = await response.text();
+                outputBox.textContent = text || "No results available.";
+            } catch (error) {
+                outputBox.textContent = "Failed to load results.";
+            }
+        }
 
         async function loadLogs() {
             try {
-                const response = await fetch("/get-all-nmap-logs/");
-                const logs = await response.json();
+                const nmapresponse = await fetch("/get-all-nmap-logs/");
+                const nmaplogs = await nmapresponse.json();
+
+                const vulnresponse = await fetch("/get-all-vuln-logs/");
+                const vulnlogs = await vulnresponse.json();
                 
                 const tableBody = document.getElementById("logTableBody");
                 tableBody.innerHTML = ""; // Clear existing rows
 
-                logs.forEach(log => {
+                nmaplogs.forEach(log => {
                     const row = document.createElement("tr");
                     row.innerHTML = `
                         <td>${log.Type || "NMAP"}</td>
@@ -190,11 +215,27 @@
                     // Make the rows clickable
                     row.style.cursor = "pointer";
                     row.addEventListener("click", () => {
-                        loadResults(log.Name)
+                        loadNmapResults(log.Name)
                     });
 
                     tableBody.appendChild(row);
                 });
+                vulnlogs.forEach(log => {
+                    const row = document.createElement("tr");
+                    row.innerHTML = `
+                        <td>${log.Type || "VULN"}</td>
+                        <td>${log.Name || "Unknown"}</td>
+                    `;
+                    
+                    // Make the rows clickable
+                    row.style.cursor = "pointer";
+                    row.addEventListener("click", () => {
+                        loadVulnResults(log.Name)
+                    });
+
+                    tableBody.appendChild(row);
+                });
+                
             } catch (error) {
                 console.error("Error loading logs:", error);
             }

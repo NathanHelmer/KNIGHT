@@ -10,13 +10,13 @@ from osdetection import vuln_results_path
 
 # Precondition: ipaddr is a string of an IP address or IP address range.
 # Postcondition: returns an nmap scan object of scan results on ipaddr.
-def vuln_scanner(ipaddr, ports='1-1000'):
+def vuln_scanner(ipaddr, ports='1-1000', path=""):
     __script_flag__ = '--script vuln'
     
     vs = nmap.PortScanner()
     vuln_output = vs.scan(ipaddr, ports, __script_flag__)
 
-    path = vuln_results_path()
+    #path = vuln_results_path()
 
     vuln_out = open(path, 'w')
 

@@ -8,7 +8,7 @@ import os
 from flask import Flask, render_template, jsonify, request
 from net_scan import port_scan, get_flags
 from vuln_scan import vuln_scanner
-from osdetection import nmap_results_path, vuln_results_path, nmap_logs_path
+from osdetection import nmap_results_path, vuln_results_path, nmap_logs_path, vuln_logs_path
 
 app = Flask(__name__, template_folder='../UserInterface', static_folder='../UserInterface/images')
 
@@ -54,8 +54,11 @@ def run_nmap_scan():
 def run_vuln_scan():
     ipaddr = request.args.get('ip', '127.0.0.1')
     ports = request.args.get('ports', '1-1000')
+    
+    path = vuln_results_path()
+    vuln_scanner(ipaddr, ports, path)
 
-    return jsonify(vuln_scanner(ipaddr, ports))
+    return jsonify({"message": "Scan completed", "path": path})
 
 @app.route('/get-nmap-results/', methods=['GET'])
 def get_nmap_results():
@@ -72,7 +75,8 @@ def get_nmap_results():
     
 @app.route('/get-vuln-results/', methods=['GET'])
 def get_vuln_results():
-    path = vuln_results_path()
+    path = request.args.get('path')
+    #path = vuln_results_path()
     try:
         with open(path, "r") as file:
             content = file.read()
@@ -90,11 +94,28 @@ def get_all_nmap_logs():
     except Exception as e:
         print("error")
         return jsonify({"error": str(e)}), 500
+
+@app.route('/get-all-vuln-logs/', methods=['GET'])
+def get_all_vuln_logs():
+    LOGS_DIR = vuln_logs_path()
+    print(LOGS_DIR)
+    try:
+        files = os.listdir(LOGS_DIR)
+        logs = [{"Name": file} for file in files]
+        return jsonify(logs)
+    except Exception as e:
+        print("error")
+        return jsonify({"error": str(e)}), 500
     
 @app.route('/get-nmap-dir/', methods=['GET'])
 def get_nmap_dir():
     path = nmap_logs_path()
     return jsonify({"nmap_logs_dir": path})
+
+@app.route('/get-vuln-dir/', methods=['GET'])
+def get_vuln_dir():
+    path = vuln_logs_path()
+    return jsonify({"vuln_logs_dir": path})
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
