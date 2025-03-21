@@ -82,9 +82,7 @@ def get_vuln_results():
 
 @app.route('/get-all-nmap-logs/', methods=['GET'])
 def get_all_nmap_logs():
-    print('getnmap')
-    LOGS_DIR = os.path.abspath("./results/nmap/")
-    print(LOGS_DIR)
+    LOGS_DIR = nmap_logs_path()
     try:
         files = os.listdir(LOGS_DIR)
         logs = [{"Name": file} for file in files]
