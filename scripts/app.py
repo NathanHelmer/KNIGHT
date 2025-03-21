@@ -8,7 +8,7 @@ import os
 from flask import Flask, render_template, jsonify, request
 from net_scan import port_scan, get_flags
 from vuln_scan import vuln_scanner
-from osdetection import nmap_results_path, vuln_results_path
+from osdetection import nmap_results_path, vuln_results_path, nmap_logs_path
 
 app = Flask(__name__, template_folder='../UserInterface', static_folder='../UserInterface/images')
 
@@ -91,6 +91,8 @@ def get_all_nmap_logs():
     except Exception as e:
         print("error")
         return jsonify({"error": str(e)}), 500
+    
+#@app.route('/retrieve-nmap-logs/', methods=['GET'])
 
 
 if __name__ == '__main__':

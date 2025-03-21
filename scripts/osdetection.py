@@ -28,6 +28,19 @@ def nmap_results_path():
             os.makedirs(windowsdir)
         return windowspath
 
+# Precondition: none
+# Postcondition: returns the file path for Nmap logs directory based on the host OS (Windows or Linux)
+def nmap_logs_path():
+    linuxdir = os.path.abspath("./results/nmap/")
+    windowsdir = os.path.abspath("results\\nmap\\")
+    if (sys.platform == 'linux'):
+        if not os.path.exists(linuxdir):
+            os.makedirs(linuxdir)
+        return linuxdir
+    else:
+        if not os.path.exists(windowsdir):
+            os.makedirs(windowsdir)
+        return windowsdir
 
 # Precondition: none
 # Postcondition: returns the file path for vulnerability scan results based on the host OS (Windows or Linux)
