@@ -23,21 +23,14 @@
             top: 0;
             z-index: 1000;
         }
-        .company-name a {
-            text-decoration: none;
-            color: #ff4d4d; 
-            font-size: 2em;
-            font-weight: bold;
-            text-shadow: 0 0 8px #ff4d4d, 0 0 16px #ff4d4d; 
-            transition: transform 0.3s, text-shadow 0.3s;
-        }
         .table-container {
-            max-height: 300px;
+            flex: 1;
             overflow-y: auto;
             border: 3.5px solid #812e31;
-            width: 70%;
+            width: auto;
             margin-left: auto; 
             margin-right: auto;
+            max-height: 80vh;
         }
         table {
             width: 100%;
@@ -63,13 +56,35 @@
             text-shadow: 0 0 8px #ff4d4d, 0 0 16px #ff4d4d; 
             text-align: center;
         }
+        .output-box {
+            flex: 1;
+            padding: 20px;
+            background: rgba(255, 77, 77, 0.1);
+            border: 2px solid #ff4d4d;
+            border-radius: 10px;
+            color: #ff4d4d;
+            font-family: 'Courier New', Courier, monospace;
+            overflow-y: auto;
+            white-space: pre-wrap;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+            max-height: 80vh;
+        }
+        .main {
+            display: flex;
+            padding: 20px;
+            gap: 20px;
+            flex: 1;
+            height: calc(100vh - 120px);
+        }
     </style>
 </head>
 <body>
     {% include 'header.html' %}
+    
     <div class="title">
         <h1> SCAN LOGS </h1>
     </div>
+<main class="main">
     <div class="table-container">
         <table>
             <thead>
@@ -84,6 +99,10 @@
         </table>
     </div>
 
+    <div class="output-box" id="output" style="overflow-y: auto; border: 1px solid #ccc; padding: 10px;">
+        Results will appear here
+    </div>
+</main>
     <script>
         async function loadLogs() {
             try {
@@ -96,9 +115,16 @@
                 logs.forEach(log => {
                     const row = document.createElement("tr");
                     row.innerHTML = `
-                        <td>${log.Type || "Unknown"}</td>
+                        <td>${log.Type || "NMAP"}</td>
                         <td>${log.Name || "Unknown"}</td>
                     `;
+                    
+                    // Make the rows clickable
+                    row.style.cursor = "pointer";
+                    row.addEventListener("click", () => {
+                        alert(`Log Name: ${log.Name || "Unknown"}`);
+                    });
+
                     tableBody.appendChild(row);
                 });
             } catch (error) {

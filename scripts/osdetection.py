@@ -6,9 +6,7 @@ Created: 2/25/25
 Updated: 3/19/25
 '''
 
-import sys
-import os
-import datetime
+import sys, os, datetime
 
 # Precondition: none
 # Postcondition: returns the file path for Nmap scan results based on the host OS (Windows or Linux)
@@ -29,6 +27,7 @@ def nmap_results_path():
         if not os.path.exists(windowsdir):
             os.makedirs(windowsdir)
         return windowspath
+
 
 # Precondition: none
 # Postcondition: returns the file path for vulnerability scan results based on the host OS (Windows or Linux)

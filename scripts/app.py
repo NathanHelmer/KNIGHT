@@ -83,6 +83,7 @@ def get_vuln_results():
 def get_all_nmap_logs():
     print('getnmap')
     LOGS_DIR = os.path.abspath("./results/nmap/")
+    print(LOGS_DIR)
     try:
         files = os.listdir(LOGS_DIR)
         logs = [{"Name": file} for file in files]
