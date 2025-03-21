@@ -63,6 +63,7 @@ def get_nmap_results():
     print("Received path:", path)
 
     try:
+        print("Opening file")
         with open(path, "r") as file:
             content = file.read()
         return content, 200, {'Content-Type': 'text/plain'}
@@ -92,8 +93,10 @@ def get_all_nmap_logs():
         print("error")
         return jsonify({"error": str(e)}), 500
     
-#@app.route('/retrieve-nmap-logs/', methods=['GET'])
-
+@app.route('/get-nmap-dir/', methods=['GET'])
+def get_nmap_dir():
+    path = nmap_logs_path()
+    return jsonify({"nmap_logs_dir": path})
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)

@@ -108,6 +108,14 @@
             flex: 1;
             height: calc(100vh - 120px);
         }
+        footer {
+            text-align: center;
+            padding: 10px;
+            background: linear-gradient(90deg, #3a3f44, #1e2228);
+            border-top: 2px solid #ff4d4d;
+            color: #c9d1d9;
+            font-size: 0.9em;
+        }
     </style>
 </head>
 <body>
@@ -135,18 +143,32 @@
         Results will appear here
     </div>
 </main>
+<footer>
+    <p>&copy; <span id="current-year"></span> Nicolas Domico | Contact: <a href="mailto:nicolas.domico@stvincent.edu">nicolas.domico@stvincen.edu</a></p>
+</footer>
+
     <script>
-        async function loadResults(path) {
-            if (!path) {
-                outputBox.textContent = "File path not available.";
+        const outputBox = document.getElementById('output');
+        async function loadResults(file) {
+            if (!file) {
+                outputBox.textContent = "File not available.";
                 return;
             }
             try {
+                const dirResponse = await fetch(`/get-nmap-dir/`);
+                const dirData = await dirResponse.json();
+                if (!dirData.nmap_logs_dir) {
+                    console.error("Failed to get Nmap logs directory.");
+                    outputBox.textContent = "Directory not available.";
+                    return;
+                }
+                dir = dirData.nmap_logs_dir;
+                const path = dir + file;
                 const response = await fetch(`/get-nmap-results/?path=${encodeURIComponent(path)}`);
                 const text = await response.text();
-                outputBox.textContent = text || 'No results available.';
+                outputBox.textContent = text || "No results available.";
             } catch (error) {
-                outputBox.textContent = 'Failed to load results.';
+                outputBox.textContent = "Failed to load results.";
             }
         }
 
@@ -168,7 +190,7 @@
                     // Make the rows clickable
                     row.style.cursor = "pointer";
                     row.addEventListener("click", () => {
-                        alert(`Log Name: ${log.Name || "Unknown"}`);
+                        loadResults(log.Name)
                     });
 
                     tableBody.appendChild(row);

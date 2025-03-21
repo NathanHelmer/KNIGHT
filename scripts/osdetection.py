@@ -36,11 +36,11 @@ def nmap_logs_path():
     if (sys.platform == 'linux'):
         if not os.path.exists(linuxdir):
             os.makedirs(linuxdir)
-        return linuxdir
+        return os.path.join(linuxdir, '')
     else:
         if not os.path.exists(windowsdir):
             os.makedirs(windowsdir)
-        return windowsdir
+        return os.path.join(windowsdir, '')
 
 # Precondition: none
 # Postcondition: returns the file path for vulnerability scan results based on the host OS (Windows or Linux)
@@ -51,3 +51,4 @@ def vuln_results_path():
         return linuxpath
     else:
         return windowspath
+    
