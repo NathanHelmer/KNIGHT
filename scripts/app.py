@@ -20,9 +20,9 @@ def home():
 def run_nmap_page():
     return render_template('nmap-scans.html')
 
-@app.route('/nmap-logs/')
+@app.route('/scan-logs/')
 def run_nmap_logs_page():
-    return render_template('nmap-logs.html')
+    return render_template('scan-logs.html')
 
 @app.route('/vuln-scans/')
 def run_vuln_scans_page():
