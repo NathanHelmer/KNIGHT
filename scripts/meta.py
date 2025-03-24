@@ -22,6 +22,10 @@ def search_exploit(cve):
     for m in dir(client):
         if not m.startswith('_'):
             print(m)
+        
+    for m in dir(client['modules']):
+        if not m.startswith('_'):
+            print(m)
     return
 
 search_exploit('test')
