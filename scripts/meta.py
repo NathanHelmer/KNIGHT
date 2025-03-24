@@ -1,9 +1,18 @@
-# metap.py
-# Description: connects to the device's metasploit implementation and searches for exploit modules related to a given CVE.
-# Created: 3/24/25
-# Updated: 3/24/25
+'''
+metap.py
+Description: connects to the device's metasploit implementation and searches for exploit modules related to a given CVE.
+Created: 3/24/25
+Updated: 3/24/25
+'''
 
 from pymetasploit3.msfrpc import MsfRpcClient
+
+'''
+Instructions for MsfRpcClient:
+The RPC server can be started using the command `msfrpcd -P <password>`. This command will start the
+server on port 55553. The current password to being the service is NfF9sTEo. The MsfRpcClient function
+will connect to the server on port 55553 and return a metasploit object ot client.
+'''
 
 client = MsfRpcClient('NfF9sTEo', port=55553, ssl=True)
 
