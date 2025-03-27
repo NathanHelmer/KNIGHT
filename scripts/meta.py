@@ -14,7 +14,11 @@ server on port 55553. The current password to being the service is NfF9sTEo. The
 will connect to the server on port 55553 and return a metasploit object ot client.
 '''
 
-client = MsfRpcClient('NfF9sTEo', port=55553, ssl=True)
+try:
+    client = MsfRpcClient('NfF9sTEo', port=55553, ssl=True)
+except:
+    print("Failed to connect to MsfRpcClient")
+    exit(0)
 
 # Precondition: cve is a string for the cve name to be searched.
 # Postcondition: returns a the name/path of the exploit module if found.
@@ -22,10 +26,11 @@ def search_exploit(cve):
     for m in dir(client):
         if not m.startswith('_'):
             print(m)
-        
-    for m in dir(client['modules']):
-        if not m.startswith('_'):
-            print(m)
+            if m == 'modules':
+                print('\nmodule:\n')
+                for i in dir(m):
+                    print(i)
+
     return
 
 search_exploit('test')
