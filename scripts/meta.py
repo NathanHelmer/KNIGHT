@@ -6,6 +6,7 @@ Updated: 3/24/25
 '''
 
 from pymetasploit3.msfrpc import MsfRpcClient
+from pymetasploit3.msfconsole import MsfRpcConsole
 
 '''
 Instructions for MsfRpcClient:
@@ -18,6 +19,12 @@ try:
     client = MsfRpcClient('NfF9sTEo', port=55553, ssl=True)
 except:
     print("Failed to connect to MsfRpcClient")
+    exit(0)
+
+try:
+    console = MsfRpcConsole(client, cb=read_console)
+except:
+    print("Failed to initialize console")
     exit(0)
 
 # Precondition: cve is a string for the cve name to be searched.
