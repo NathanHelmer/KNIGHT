@@ -6,7 +6,7 @@ Updated: 3/24/25
 '''
 
 from pymetasploit3.msfrpc import MsfRpcClient
-from pymetasploit3.msfconsole import MsfRpcConsole
+from metasploit.msfconsole import MsfRpcConsole
 
 '''
 Instructions for MsfRpcClient:
