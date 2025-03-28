@@ -2,11 +2,10 @@
 metap.py
 Description: connects to the device's metasploit implementation and searches for exploit modules related to a given CVE.
 Created: 3/24/25
-Updated: 3/24/25
+Updated: 3/28/25
 '''
 
 from pymetasploit3.msfrpc import MsfRpcClient
-from metasploit.msfconsole import MsfRpcConsole
 
 '''
 Instructions for MsfRpcClient:
