@@ -14,7 +14,7 @@ server on port 55553. The current password to being the service is NfF9sTEo. The
 will connect to the server on port 55553 and return a metasploit object ot client.
 '''
 
-__password__ = 'NfF9sTEo'
+__password__ = 'NfF9sTEo' # The current password for msfrpcd; this will need to be changed for every system
 
 try:
     client = MsfRpcClient(__password__, port=55553, ssl=True)
