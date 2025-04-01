@@ -22,7 +22,7 @@ print('Connecting to MsfRpcClient...')
 
 try:
     print('Trying connection...')
-    client = MsfRpcClient(__password__, port=55552, ssl=True)
+    client = MsfRpcClient(__password__, port=55553, ssl=True)
     print('Connected to MsfRpcClient')
 except:
     print("Failed to connect to MsfRpcClient")
