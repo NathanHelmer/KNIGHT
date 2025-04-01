@@ -12,8 +12,8 @@ Instructions for MsfRpcClient:
 Load msfrpc in msf console using the `load msgprc` command.
 
 The RPC server can be started using the command `msfrpcd -P <password>`. This command will start the
-server on port 55552. The current password to being the service is NfF9sTEo. The MsfRpcClient function
-will connect to the server on port 55552 and return a metasploit object ot client.
+server on port 55553. The current password to being the service is NfF9sTEo. The MsfRpcClient function
+will connect to the server on port 55553 and return a metasploit object ot client.
 '''
 
 __password__ = 'nKJyB2N5'
