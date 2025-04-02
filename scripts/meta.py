@@ -16,7 +16,7 @@ server on port 55553. The current password to being the service is NfF9sTEo. The
 will connect to the server on port 55553 and return a metasploit object ot client.
 '''
 
-__password__ = 'TgmOZLUA'
+__password__ = 'knight'
 
 print('Connecting to MsfRpcClient...')
 
