@@ -9,7 +9,7 @@ from pymetasploit3.msfrpc import MsfRpcClient
 
 '''
 Instructions for MsfRpcClient:
-Load msfrpc in msf console using the `load msgprc` command.
+Load msfrpc in msf console using the `load msgprc` command. Run `load msgrpc -P knight`.
 
 The RPC server can be started using the command `msfrpcd -P <password>`. This command will start the
 server on port 55553. The current password to being the service is NfF9sTEo. The MsfRpcClient function
