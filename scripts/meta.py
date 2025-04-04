@@ -18,8 +18,6 @@ will connect to the server on port 55553 and return a metasploit object ot clien
 
 __password__ = 'knight'
 
-print('Connecting to MsfRpcClient...')
-
 try:
     print('Trying connection...')
     client = MsfRpcClient(__password__, port=55553, ssl=True)
