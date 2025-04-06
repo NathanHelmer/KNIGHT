@@ -39,8 +39,12 @@ def vuln_results_path():
     linuxdir = os.path.abspath("./results/vuln/")
     windowsdir = os.path.abspath("results\\vuln\\")
     if (sys.platform == 'linux'):
+        if not os.path.exists(linuxdir):
+            os.makedirs(linuxdir)
         return linuxpath
     else:
+        if not os.path.exists(windowsdir):
+            os.makedirs(windowsdir)
         return windowspath
 
 # Precondition: none

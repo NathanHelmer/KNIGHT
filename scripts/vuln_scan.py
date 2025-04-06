@@ -6,7 +6,6 @@ Updated: 4/5/25
 '''
 
 import nmap
-from osdetection import vuln_results_path
 from meta import search_exploit
 
 # Precondition: ipaddr is a string of an IP address or IP address range.
