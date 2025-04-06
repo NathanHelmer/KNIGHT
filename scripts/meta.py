@@ -18,19 +18,22 @@ will connect to the server on port 55553 and return a metasploit object ot clien
 
 __password__ = 'knight'
 
-print('Connecting to MsfRpcClient...')
+def connect_meta():
+    print('Connecting to MsfRpcClient...')
 
-try:
-    print('Trying connection...')
-    client = MsfRpcClient(__password__, port=55553, ssl=True)
-    print('Connected to MsfRpcClient')
-except:
-    print("Failed to connect to MsfRpcClient")
-    exit(0)
+    try:
+        print('Trying connection...')
+        client = MsfRpcClient(__password__, port=55553, ssl=True)
+        print('Connected to MsfRpcClient')
+    except:
+        print("Failed to connect to MsfRpcClient")
+        exit(0)
 
 # Precondition: cve is a string for the cve name to be searched.
 # Postcondition: returns a list of matching exploits.
 def search_exploit(cve):
+
+    connect_meta()
 
     print('Searching for exploits...')
 
