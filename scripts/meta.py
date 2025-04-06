@@ -18,6 +18,8 @@ will connect to the server on port 55553 and return a metasploit object ot clien
 
 __password__ = 'knight'
 
+print('Connecting to MsfRpcClient...')
+
 try:
     print('Trying connection...')
     client = MsfRpcClient(__password__, port=55553, ssl=True)
@@ -27,17 +29,19 @@ except:
     exit(0)
 
 # Precondition: cve is a string for the cve name to be searched.
-# Postcondition: returns a the name/path of the exploit module if found.
+# Postcondition: returns a list of matching exploits.
 def search_exploit(cve):
 
     print('Searching for exploits...')
+
+    found = []
 
     for m in client.modules.exploits:
         exploit = client.modules.use('exploit', m)
 
         if cve in exploit.description:
-            print(exploit.description)
+            found.append(exploit)
     
     print('Search finished')
 
-    return
+    return found
