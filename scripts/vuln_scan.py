@@ -2,11 +2,12 @@
 vuln_scan.py
 Description: Runs an nmap vulnerability scan using a script and returns the results.
 Created 2/20/25
-Updated: 3/18/25
+Updated: 4/5/25
 '''
 
 import nmap
 from osdetection import vuln_results_path
+from meta import search_exploit
 
 # Precondition: ipaddr is a string of an IP address or IP address range.
 # Postcondition: returns an nmap scan object of scan results on ipaddr.
@@ -33,7 +34,24 @@ def vuln_scanner(ipaddr, ports='1-1000', path=""):
             try:
                 list_scans = vs[host]['tcp'][port]['script'].keys()
                 for scan in list_scans:
-                    vuln_out.write("Vulnerability: {}\n".format(vs[host]['tcp'][port]['script'][scan]))
+                    vuln_result = vs[host]['tcp'][port]['script'][scan]
+                    
+                    vuln_out.write("Vulnerability: {}\n".format(vuln_result))
+
+                    try:
+                        if 'CVE' in vs[host]['tcp'][port]['script'][scan]:
+                            i = vuln_reult.find('CVE')
+                            search_cve = vuln_result[i:]
+                            j = search_cve.index(" ")
+
+                            search_cve = vuln_result[i:j]
+
+                            found_exploits = search_exploit(search_cve)
+
+                            for e in found_exploits:
+                                vuln_out.write("Potential exploit found: {}".format(e))
+                    except:
+                        pass
             except:
                 print("No vulnerabilities found\n")
 
