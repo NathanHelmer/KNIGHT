@@ -52,8 +52,8 @@ def search_exploit(cve):
     for m in client.modules.exploits:
         exploit = client.modules.use('exploit', m)
 
-        if cve in exploit.description:
-            found.append(exploit)
+        if cve in exploit.cve:
+            found.append(exploit.name)
     
     print('Search finished')
 
