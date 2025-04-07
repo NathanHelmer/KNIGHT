@@ -48,7 +48,7 @@ def vuln_scanner(ipaddr, ports='1-1000', path=""):
                             found_exploits = search_exploit(search_cve)
 
                             for e in found_exploits:
-                                vuln_out.write("Potential exploit found: {}".format(e))
+                                vuln_out.write("Potential Metasploit exploit found: {}\n".format(e))
                     except:
                         pass
             except:
