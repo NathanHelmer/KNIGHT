@@ -2,7 +2,7 @@
 metap.py
 Description: connects to the device's metasploit implementation and searches for exploit modules related to a given CVE.
 Created: 3/24/25
-Updated: 4/6/25
+Updated: 4/9/25
 '''
 
 from pymetasploit3.msfrpc import MsfRpcClient
@@ -41,19 +41,14 @@ def search_exploit(cve):
     client = connect_meta()
     
     found = []
-    
-    if client == null:
-        return found
 
     print('Searching for exploits...')
-
-    
 
     for m in client.modules.exploits:
         exploit = client.modules.use('exploit', m)
 
-        if cve in exploit.cve:
-            found.append(exploit.name)
+        if cve in exploit.description:
+            found.append(exploit)
     
     print('Search finished')
 
