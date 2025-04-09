@@ -2,7 +2,7 @@
 vuln_scan.py
 Description: Runs an nmap vulnerability scan using a script and returns the results.
 Created 2/20/25
-Updated: 4/5/25
+Updated: 4/9/25
 '''
 
 import nmap
