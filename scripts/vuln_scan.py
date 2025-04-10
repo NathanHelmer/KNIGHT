@@ -43,7 +43,7 @@ def vuln_scanner(ipaddr, ports='1-1000', path=""):
                             search_cve = vuln_result[i:]
                             j = search_cve.index(" ")
 
-                            search_cve = vuln_result[i:j]
+                            search_cve = search_cve[:j]
 
                             found_exploits = search_exploit(search_cve)
 
