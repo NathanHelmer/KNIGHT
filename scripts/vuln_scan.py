@@ -38,7 +38,7 @@ def vuln_scanner(ipaddr, ports='1-1000', path=""):
                     vuln_out.write("Vulnerability: {}\n".format(vuln_result))
 
                     try:
-                        if 'CVE-' in vs[host]['tcp'][port]['script'][scan]:
+                        if 'CVE-' in vuln_result:
                             i = vuln_reult.find('CVE-')
                             search_cve = vuln_result[i:]
                             j = search_cve.index(" ")
