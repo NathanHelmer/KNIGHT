@@ -35,6 +35,9 @@ def vuln_scanner(ipaddr, ports='1-1000', path=""):
                 for scan in list_scans:
                     vuln_result = vs[host]['tcp'][port]['script'][scan]
                     
+                    if "Couldn't find any " in vuln_result:
+                        continue
+
                     vuln_out.write("Vulnerability: {}\n".format(vuln_result))
 
                     try:
