@@ -317,6 +317,74 @@
     speed.addEventListener('change', () => { updateCommandLine(); updateRunButton(); });
     portCheckbox.addEventListener('change', () => { updateCommandLine(); updateRunButton(); });
     portInput.addEventListener('input', () => { updateCommandLine(); updateRunButton(); });
+
+    async function loadResults(path) {
+            if (!path) {
+                outputBox.textContent = "File path not available.";
+                return;
+            }
+            try {
+                const response = await fetch(`/get-nmap-results/?path=${encodeURIComponent(path)}`);
+                const text = await response.text();
+                outputBox.textContent = text || 'No results available.';
+            } catch (error) {
+                outputBox.textContent = 'Failed to load results.';
+            }
+        }
+
+        window.onload = () => {
+            clearOutputBox();
+        };
+
+    const runScanButton = document.getElementById('run-scan-button');
+    const scanStatus = document.getElementById('scan-status');
+
+// Enable button if IP and command are valid
+function updateRunButton() {
+    const ip = ipInput.value.trim();
+    const isReady = ip && commandLine.value.trim();
+    runScanButton.disabled = !isReady;
+    scanStatus.textContent = isReady ? 'Scan ready to run' : 'Scan not ready';
+    scanStatus.style.color = isReady ? 'green' : 'red';
+}
+
+// Add event listeners to update the run button when inputs change
+ipInput.addEventListener('input', updateRunButton);
+quickOptions.addEventListener('change', updateRunButton);
+verbose.addEventListener('change', updateRunButton);
+osDetection.addEventListener('change', updateRunButton);
+versionDetection.addEventListener('change', updateRunButton);
+speed.addEventListener('change', updateRunButton);
+portCheckbox.addEventListener('change', updateRunButton);
+portInput.addEventListener('input', updateRunButton);
+
+// Add a click handler for the button (to run the scan)
+runScanButton.addEventListener('click', async () => {
+    const ip = ipInput.value.trim();
+    const ports = portInput.value;
+    const cmd = commandLine.value;
+    const url = `/run-nmap-scan/?ip=${encodeURIComponent(ip)}&ports=${encodeURIComponent(ports)}&cmd=${encodeURIComponent(cmd)}`;
+
+    try {
+        scanStatus.textContent = 'Running scan...';
+        scanStatus.style.color = 'orange';
+
+        const response = await fetch(url, {});
+        const data = await response.json();
+
+        if (response.ok) {
+            const path = data.path;
+            scanStatus.textContent = 'Scan completed!';
+            scanStatus.style.color = 'green';
+            loadResults(path); // Load the scan results after it runs
+        } else {
+            throw new Error('Scan failed');
+        }
+    } catch (error) {
+        scanStatus.textContent = 'Scan failed';
+        scanStatus.style.color = 'red';
+    }
+});
   </script>
 </body>
 </html>
