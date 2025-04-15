@@ -106,7 +106,8 @@
             padding: 20px;
             gap: 20px;
             flex: 1;
-            height: calc(100vh - 120px);
+            height: calc(100vh - 160px);
+            flex-wrap: wrap;
         }
         footer {
             text-align: center;
@@ -116,39 +117,73 @@
             color: #c9d1d9;
             font-size: 0.9em;
         }
+        .filter-sort-controls {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 30px;
+            align-items: center;
+        }
+        .filter-sort-controls label {
+            margin-right: 8px;
+        }
     </style>
 </head>
 <body>
     {% include 'header.html' %}
-    
+
     <div class="title">
-        <h1> SCAN LOGS </h1>
-    </div>
-<main class="main">
-    <div class="table-container">
-        <table>
-            <thead>
-                <tr>
-                    <th><b>Type</b></th>
-                    <th><b>Date</b></th>
-                </tr>
-            </thead>
-            <tbody id="logTableBody">
-                <!-- Log data will be loaded here dynamically -->
-            </tbody>
-        </table>
+        <h1>SCAN LOGS</h1>
     </div>
 
-    <div class="output-box" id="output">
-        Results will appear here
+    <div class="filter-sort-controls">
+        <div>
+            <label for="typeFilter">Filter by Type:</label>
+            <select id="typeFilter">
+                <option value="ALL">All</option>
+                <option value="NMAP">NMAP</option>
+                <option value="VULN">VULN</option>
+            </select>
+        </div>
+        <div>
+            <label for="sortBy">Sort by:</label>
+            <select id="sortBy">
+                <option value="date-desc">Date ↓</option>
+                <option value="date-asc">Date ↑</option>
+                <option value="type-asc">Type A-Z</option>
+                <option value="type-desc">Type Z-A</option>
+            </select>
+        </div>
     </div>
-</main>
-<footer>
-    <p>&copy; <span id="current-year"></span> Nicolas Domico | Contact: <a href="mailto:nicolas.domico@stvincent.edu">nicolas.domico@stvincent.edu</a></p>
-</footer>
+
+    <main class="main">
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th><b>Type</b></th>
+                        <th><b>Date</b></th>
+                    </tr>
+                </thead>
+                <tbody id="logTableBody">
+                    <!-- Log data will be loaded here dynamically -->
+                </tbody>
+            </table>
+        </div>
+
+        <div class="output-box" id="output">
+            Results will appear here
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; <span id="current-year"></span> Seige Engine | Contact: <a href="mailto:nicolas.domico@stvincent.edu">nicolas.domico@stvincent.edu</a></p>
+    </footer>
 
     <script>
+        document.getElementById("current-year").textContent = new Date().getFullYear();
+
         const outputBox = document.getElementById('output');
+
         async function loadNmapResults(file) {
             if (!file) {
                 outputBox.textContent = "File not available.";
@@ -158,12 +193,10 @@
                 const dirResponse = await fetch(`/get-nmap-dir/`);
                 const dirData = await dirResponse.json();
                 if (!dirData.nmap_logs_dir) {
-                    console.error("Failed to get Nmap logs directory.");
                     outputBox.textContent = "Directory not available.";
                     return;
                 }
-                dir = dirData.nmap_logs_dir;
-                const path = dir + file;
+                const path = dirData.nmap_logs_dir + file;
                 const response = await fetch(`/get-nmap-results/?path=${encodeURIComponent(path)}`);
                 const text = await response.text();
                 outputBox.textContent = text || "No results available.";
@@ -171,6 +204,7 @@
                 outputBox.textContent = "Failed to load results.";
             }
         }
+
         async function loadVulnResults(file) {
             if (!file) {
                 outputBox.textContent = "File not available.";
@@ -180,12 +214,10 @@
                 const dirResponse = await fetch(`/get-vuln-dir/`);
                 const dirData = await dirResponse.json();
                 if (!dirData.vuln_logs_dir) {
-                    console.error("Failed to get Vuln logs directory.");
                     outputBox.textContent = "Directory not available.";
                     return;
                 }
-                dir = dirData.vuln_logs_dir;
-                const path = dir + file;
+                const path = dirData.vuln_logs_dir + file;
                 const response = await fetch(`/get-vuln-results/?path=${encodeURIComponent(path)}`);
                 const text = await response.text();
                 outputBox.textContent = text || "No results available.";
@@ -239,56 +271,61 @@
 
         async function loadLogs() {
             try {
-                const nmapresponse = await fetch("/get-all-nmap-logs/");
+                const [nmapresponse, vulnresponse] = await Promise.all([
+                    fetch("/get-all-nmap-logs/"),
+                    fetch("/get-all-vuln-logs/")
+                ]);
+
                 const nmaplogs = await nmapresponse.json();
-
-                const vulnresponse = await fetch("/get-all-vuln-logs/");
                 const vulnlogs = await vulnresponse.json();
-                
+
+                const allLogs = [
+                    ...nmaplogs.map(log => ({ Type: "NMAP", Name: log.Name })),
+                    ...vulnlogs.map(log => ({ Type: "VULN", Name: log.Name }))
+                ];
+
+                const typeFilter = document.getElementById("typeFilter").value;
+                const sortBy = document.getElementById("sortBy").value;
+
+                let filteredLogs = typeFilter === "ALL"
+                    ? allLogs
+                    : allLogs.filter(log => log.Type === typeFilter);
+
+                filteredLogs.sort((a, b) => {
+                    if (sortBy === "date-desc") return b.Name.localeCompare(a.Name);
+                    if (sortBy === "date-asc") return a.Name.localeCompare(b.Name);
+                    if (sortBy === "type-asc") return a.Type.localeCompare(b.Type);
+                    if (sortBy === "type-desc") return b.Type.localeCompare(a.Type);
+                    return 0;
+                });
+
                 const tableBody = document.getElementById("logTableBody");
-                tableBody.innerHTML = ""; // Clear existing rows
+                tableBody.innerHTML = "";
 
-                nmaplogs.forEach(log => {
+                filteredLogs.forEach(log => {
                     const row = document.createElement("tr");
-                    row.innerHTML = `
-                        <td>${log.Type || "NMAP"}</td>
-                        <td>${log.Name || "Unknown"}</td>
-                    `;
-                    
-                    // Make the rows clickable
+                    row.innerHTML = `<td>${log.Type}</td><td>${log.Name}</td>`;
                     row.style.cursor = "pointer";
                     row.addEventListener("click", () => {
-                        loadNmapResults(log.Name)
+                        if (log.Type === "NMAP") {
+                            loadNmapResults(log.Name);
+                        } else {
+                            loadVulnResults(log.Name);
+                        }
                     });
-
                     tableBody.appendChild(row);
                 });
-                vulnlogs.forEach(log => {
-                    const row = document.createElement("tr");
-                    row.innerHTML = `
-                        <td>${log.Type || "VULN"}</td>
-                        <td>${log.Name || "Unknown"}</td>
-                    `;
-                    
-                    // Make the rows clickable
-                    row.style.cursor = "pointer";
-                    row.addEventListener("click", () => {
-                        loadVulnResults(log.Name)
-                    });
 
-                    tableBody.appendChild(row);
-                });
-                
             } catch (error) {
                 console.error("Error loading logs:", error);
             }
         }
 
-        // Load logs when page loads
-        document.addEventListener("DOMContentLoaded", loadLogs);
-
-        
-
+        document.addEventListener("DOMContentLoaded", () => {
+            loadLogs();
+            document.getElementById("typeFilter").addEventListener("change", loadLogs);
+            document.getElementById("sortBy").addEventListener("change", loadLogs);
+        });
     </script>
 </body>
 </html>
