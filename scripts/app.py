@@ -98,7 +98,6 @@ def get_all_nmap_logs():
 @app.route('/get-all-vuln-logs/', methods=['GET'])
 def get_all_vuln_logs():
     LOGS_DIR = vuln_logs_path()
-    print(LOGS_DIR)
     try:
         files = os.listdir(LOGS_DIR)
         logs = [{"Name": file} for file in files]
@@ -116,6 +115,18 @@ def get_nmap_dir():
 def get_vuln_dir():
     path = vuln_logs_path()
     return jsonify({"vuln_logs_dir": path})
+
+@app.route('/delete-nmap-log/', methods=['POST'])
+def delete_nmap_log():
+    path = request.args.get('path')
+    try:
+        if os.path.exists(path):
+            os.remove(path)
+            return jsonify({"message": "File deleted"}), 200
+        else:
+            return jsonify({"message": "File not found"}), 404
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)

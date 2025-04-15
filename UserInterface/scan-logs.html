@@ -194,6 +194,49 @@
             }
         }
 
+        async function deleteNmapLogs(file) {
+            if (!file) {
+                outputBox.textContent = "File not available for deletion.";
+                return;
+            }
+            try {
+                const dirResponse = await fetch(`/get-nmap-dir/`);
+                const dirData = await dirResponse.json();
+                if (!dirData.nmap_logs_dir) {
+                    console.error("Failed to get Nmap logs directory.");
+                    outputBox.textContent = "Directory not available.";
+                    return;
+                }
+                const dir = dirData.nmap_logs_dir;
+                const path = dir + file;
+
+                const deleteResponse = await fetch(`/delete-nmap-log/?path=${encodeURIComponent(path)}`,{
+                    method: 'POST'
+                });
+
+                if (deleteResponse.ok) {
+                    outputBox.textContent = `"${file}" deleted successfully.`;
+
+                    // Remove the row from the table
+                    const tableBody = document.getElementById("logTableBody");
+                    const rows = tableBody.querySelectorAll("tr");
+                    rows.forEach(row => {
+                        if (row.children[1]?.textContent === file) {
+                            row.remove();
+                        }
+                    });
+                } else {
+                    const err = await deleteResponse.json();
+                    outputBox.textContent = `Failed to delete file: ${err.message || 'Unknown error'}`;
+                }
+
+            } catch (error) {
+                console.error(error);
+                outputBox.textContent = "Failed to delete file.";
+            }
+        }
+
+
         async function loadLogs() {
             try {
                 const nmapresponse = await fetch("/get-all-nmap-logs/");
