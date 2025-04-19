@@ -181,7 +181,7 @@
     }
     .tooltip .tooltiptext {
       visibility: hidden;
-      width: 300px;
+      width: 400px;
       background-color: #1e2228;
       color: #fff;
       text-align: left;
@@ -203,7 +203,17 @@
 </head>
 
 <body>
-    {% include 'header.html' %}
+    <header>
+        <div class="company-name">
+            <a href="index.html">KNIGHT</a>
+        </div>
+        <nav class="nav-links">
+            <a href="nmap-scans.html">NMAP Scans</a>
+            <a href="scan-logs.html">NMAP Logs</a>
+            <a href="vuln-scans.html">Vuln Scans</a>
+            <a href="help.html">Help</a>
+        </nav>
+    </header>
 
     <button id="explanation-button">What is this page?</button>
 
@@ -214,10 +224,10 @@
             <div class="scan-section" id="quick-options">
                 <h2>Quick Scan Options <span class="tooltip">?
         <span class="tooltiptext">
-          - Ping Scan (-sP): Quickly checks which hosts are online.
-          - SYN Scan (-sS): Stealthy scan that sends SYN packets.
-          - UDP Scan (-sU): Scans for UDP services (slower).
-          - Aggressive Scan (-A): Includes OS detection, version detection, script scanning, and traceroute.
+          - Ping Scan (-sP): Quickly checks which hosts are online. <br>
+          - SYN Scan (-sS): Stealthy scan that sends SYN packets. <br>
+          - UDP Scan (-sU): Scans for UDP services (slower). <br>
+          - Aggressive Scan (-A): Includes OS detection, version detection, script scanning, and traceroute. <br>
         </span>
       </span></h2>
                 <select id="quick-options-select">
@@ -231,14 +241,17 @@
 
             <div class="scan-section" id="ip-address">
                 <h2>Target IP Address <span class="tooltip">?
-        <span class="tooltiptext">Enter the IP address or domain of the machine or network you want to scan. Example: 192.168.1.1</span>
+        <span class="tooltiptext">Enter the IP address or domain of the machine or network you want to scan. <br>
+        Example: 192.168.1.1</span>
       </span></h2> 
                 <input type="text" id="ip-input" placeholder="Enter IP address here">
             </div>
 
             <div class="scan-section" id="port-range">
                 <h2>Port Range <span class="tooltip">?
-        <span class="tooltiptext">Specify a range of ports to scan. Example: 1-1000 will scan ports 1 to 1000. Leave blank for all ports.</span>
+        <span class="tooltiptext">Specify a range of ports to scan. <br>
+        Example: 1-1000 will scan ports 1 to 1000. <br>
+        Leave blank for all ports.</span>
       </span></h2>
                 <input type="checkbox" id="custom-ports">
                 <label for="custom-ports">Custom Range</label>
@@ -248,10 +261,9 @@
             <div class="scan-section" id="scan-type">
                 <h2>Custom Scan Options <span class="tooltip">?
         <span class="tooltiptext">
-          - Verbose (-v): Provides more detailed output.
-          - OS Detection (-O): Attempts to determine the operating system of the target.
-          - Version Detection (-sV): Tries to detect service versions running on open ports.
-          - Scan Speed (-T0 to -T5): Higher T values make scans faster but noisier.
+          - OS Detection (-O): Attempts to determine the operating system of the target. <br>
+          - Version Detection (-sV): Tries to detect service versions running on open ports. <br>
+          - Scan Speed (-T0 to -T5): Higher T values make scans faster but noisier. <br>
         </span></h2>
                 <input type="checkbox" id="verbose" value="-v">
                 <label for="verbose">Verbose</label>
@@ -311,7 +323,6 @@
     <script>
         const ipInput = document.getElementById('ip-input');
         const quickOptions = document.getElementById('quick-options-select');
-        const verbose = document.getElementById('verbose');
         const osDetection = document.getElementById('os-detection');
         const versionDetection = document.getElementById('version-detection');
         const speed = document.getElementById('speed');
