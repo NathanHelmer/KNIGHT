@@ -265,9 +265,6 @@
           - Version Detection (-sV): Tries to detect service versions running on open ports. <br>
           - Scan Speed (-T0 to -T5): Higher T values make scans faster but noisier. <br>
         </span></h2>
-                <input type="checkbox" id="verbose" value="-v">
-                <label for="verbose">Verbose</label>
-
                 <input type="checkbox" id="os-detection" value="-O">
                 <label for="os-detection">OS Detection</label>
 
@@ -355,7 +352,6 @@
 
         ipInput.addEventListener('input', updateCommandLine);
         quickOptions.addEventListener('change', updateCommandLine);
-        verbose.addEventListener('change', updateCommandLine);
         osDetection.addEventListener('change', updateCommandLine);
         versionDetection.addEventListener('change', updateCommandLine);
         speed.addEventListener('change', updateCommandLine);
@@ -393,7 +389,6 @@
 
         ipInput.addEventListener('input', updateRunButton);
         quickOptions.addEventListener('change', updateRunButton);
-        verbose.addEventListener('change', updateRunButton);
         osDetection.addEventListener('change', updateRunButton);
         versionDetection.addEventListener('change', updateRunButton);
         speed.addEventListener('change', updateRunButton);
