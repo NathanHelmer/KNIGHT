@@ -7,28 +7,28 @@
     <style>
         body {
             margin: 0;
-            font-family: 'Courier New', Courier, monospace; 
-            background-color: #0d1117; 
-            color: #c9d1d9; 
+            font-family: 'Courier New', Courier, monospace;
+            background-color: #0d1117;
+            color: #c9d1d9;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
         }
         header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: linear-gradient(90deg, #3a3f44, #1e2228); 
+            background: linear-gradient(90deg, #3a3f44, #1e2228);
             padding: 15px 30px;
-            border-bottom: 2px solid #ff4d4d; 
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); 
-            position: sticky;
-            top: 0;
-            z-index: 1000;
+            border-bottom: 2px solid #ff4d4d;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
         }
         .company-name a {
             text-decoration: none;
-            color: #ff4d4d; 
+            color: #ff4d4d;
             font-size: 2em;
             font-weight: bold;
-            text-shadow: 0 0 8px #ff4d4d, 0 0 16px #ff4d4d; 
+            text-shadow: 0 0 8px #ff4d4d, 0 0 16px #ff4d4d;
             transition: transform 0.3s, text-shadow 0.3s;
         }
         .company-name a:hover {
