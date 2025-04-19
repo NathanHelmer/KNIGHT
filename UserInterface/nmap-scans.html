@@ -342,7 +342,7 @@
                 commandLine.value = `nmap ${quickOption} ${ip}`.trim();
                 return;
             }
-            const options = [verbose.checked ? verbose.value : '', osDetection.checked ? osDetection.value : '', versionDetection.checked ? versionDetection.value : '', speed.value].filter(Boolean).join(' ');
+            const options = [osDetection.checked ? osDetection.value : '', versionDetection.checked ? versionDetection.value : '', speed.value].filter(Boolean).join(' ');
             const ports = portCheckbox.checked ? `-p ${portInput.value.trim()}` : '';
             commandLine.value = `nmap ${options} ${ports} ${ip}`.trim();
         }
