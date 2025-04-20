@@ -126,6 +126,51 @@
             color: #c9d1d9;
             font-size: 0.9em;
         }
+
+        #explanation-button {
+            margin: 20px;
+            padding: 10px 20px;
+            background: rgba(255, 77, 77, 0.2);
+            border: 2px solid #ff4d4d;
+            border-radius: 10px;
+            color: #ff4d4d;
+            font-size: 1em;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        #explanation-button:hover {
+            background: rgba(255, 77, 77, 0.4);
+            transform: scale(1.05);
+        }
+        .tooltip {
+      position: relative;
+      cursor: pointer;
+      margin-left: 5px;
+      color: #ff4d4d;
+      font-weight: bold;
+      animation: glow 2s infinite alternate;
+    }
+    .tooltip .tooltiptext {
+      visibility: hidden;
+      width: 400px;
+      background-color: #1e2228;
+      color: #fff;
+      text-align: left;
+      border-radius: 10px;
+      padding: 10px;
+      position: absolute;
+      z-index: 1;
+      top: -5px;
+      left: 110%;
+      opacity: 0;
+      transition: opacity 0.5s;
+      box-shadow: 0 0 10px #ff4d4d;
+    }
+    .tooltip:hover .tooltiptext {
+      visibility: visible;
+      opacity: 1;
+    }
+        
     </style>
 </head>
 <body>
