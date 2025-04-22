@@ -175,6 +175,9 @@
 </head>
 <body>
     {% include 'header.html' %}
+
+    <button id="explanation-button">What is this page?</button>
+    
     <main class="nmap-scans">
         <div class="configuration">
             <h1>Configure Your Vulnerabilty Scan</h1>
@@ -225,15 +228,13 @@
     <div id="explanation-modal" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
-            <h2>What is an NMAP Scan?</h2>
-            <p>NMAP is a network scanning tool used to discover devices, identify open ports, services, and potential vulnerabilities on a network.</p>
+            <h2>What is a Vulnerability Scan?</h2>
+            <p>A vulnerability scan identifies potential security weaknesses on a network. The result of a vulnerability scan are a host of CVE's (Common Vulnerabilities and Exposures). CVE's are useful for both system hardening and penetration testing.</p>
             <h3>Page Sections:</h3>
             <ul>
-                <li><strong>Quick Scan Options:</strong> Pre-made fast scan types like Ping or SYN scans.</li>
                 <li><strong>Target IP Address:</strong> IP or domain you want to scan.</li>
                 <li><strong>Port Range:</strong> Specific ports to scan or the entire range.</li>
-                <li><strong>Custom Scan Options:</strong> Add verbosity, detect OS, detect version, and set scan speed.</li>
-                <li><strong>Command Line Display:</strong> See the final NMAP command you are about to run.</li>
+                <li><strong>Command Line Display:</strong> See the final vulnerability command you are about to run.</li>
                 <li><strong>Output:</strong> Displays the scan results.</li>
             </ul>
         </div>
