@@ -222,6 +222,23 @@
         <p>&copy; <span id="current-year"></span> Nicolas Domico | Contact: <a href="mailto:nicolas.domico@stvincen.edu">nicolas.domico@stvincent.edu</a></p>
     </footer>
 
+    <div id="explanation-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>What is an NMAP Scan?</h2>
+            <p>NMAP is a network scanning tool used to discover devices, identify open ports, services, and potential vulnerabilities on a network.</p>
+            <h3>Page Sections:</h3>
+            <ul>
+                <li><strong>Quick Scan Options:</strong> Pre-made fast scan types like Ping or SYN scans.</li>
+                <li><strong>Target IP Address:</strong> IP or domain you want to scan.</li>
+                <li><strong>Port Range:</strong> Specific ports to scan or the entire range.</li>
+                <li><strong>Custom Scan Options:</strong> Add verbosity, detect OS, detect version, and set scan speed.</li>
+                <li><strong>Command Line Display:</strong> See the final NMAP command you are about to run.</li>
+                <li><strong>Output:</strong> Displays the scan results.</li>
+            </ul>
+        </div>
+    </div>
+
     <script>
         const ipInput = document.getElementById('ip-input');
         const verbose = document.getElementById('verbose');
