@@ -179,13 +179,17 @@
         <div class="configuration">
             <h1>Configure Your Vulnerabilty Scan</h1>
 
+            
             <!-- IP Address Section -->
             <div class="scan-section" id="ip-address">
-                <h2>Target IP Address</h2>
-                <input type="text" id="ip-input" placeholder="Enter IP address here">
+            <h2>Target IP Address <span class="tooltip">?
+            <span class="tooltiptext">Enter the IP address or domain of the machine or network you want to scan. <br>
+            Example: 192.168.1.1</span>
+            </span></h2> 
+            <input type="text" id="ip-input" placeholder="Enter IP address here">
             </div>
 
- 
+            <!-- Port Range Section -->
             <div class="scan-section" id="port-range">
             <h2>Port Range <span class="tooltip">?
             <span class="tooltiptext">Specify a range of ports to scan. <br>
