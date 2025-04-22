@@ -185,13 +185,18 @@
                 <input type="text" id="ip-input" placeholder="Enter IP address here">
             </div>
 
-            <!-- Port Range Section -->
+ 
             <div class="scan-section" id="port-range">
-                <h2>Port Range</h2>
-                <input type="checkbox" id="custom-ports">
-                <label for="custom-ports">Custom Range</label>
-                <input type="text" id="port-input" placeholder="Enter port range (e.g., 1-1000)">
+            <h2>Port Range <span class="tooltip">?
+            <span class="tooltiptext">Specify a range of ports to scan. <br>
+            Example: 1-1000 will scan ports 1 to 1000. <br>
+            Leave blank for all ports.</span>
+            </span></h2>
+            <input type="checkbox" id="custom-ports">
+            <label for="custom-ports">Custom Range</label>
+            <input type="text" id="port-input" placeholder="Enter port range (e.g., 1-1000)">
             </div>
+            
             
             <!-- Command Line Display -->
             <textarea id="command-line" rows="2" readonly></textarea>
