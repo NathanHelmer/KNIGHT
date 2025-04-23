@@ -126,6 +126,36 @@
             color: #c9d1d9;
             font-size: 0.9em;
         }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.7);
+            align-items: center;
+            justify-content: center;
+        }
+        .modal-content {
+            background-color: #1e2228;
+            padding: 20px;
+            border: 2px solid #ff4d4d;
+            border-radius: 10px;
+            color: #c9d1d9;
+            max-width: 600px;
+            text-align: left;
+            box-shadow: 0 0 15px #ff4d4d;
+        }
+        .close {
+            color: #ff4d4d;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
 
         #explanation-button {
             margin: 20px;
@@ -239,7 +269,7 @@
             </ul>
         </div>
     </div>
-
+    
     <script>
         const ipInput = document.getElementById('ip-input');
         const verbose = document.getElementById('verbose');
