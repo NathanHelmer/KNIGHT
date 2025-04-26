@@ -5,6 +5,7 @@ Created: 2/7/25
 Updated: 3/18/25
 '''
 import os
+import shutil
 from flask import Flask, render_template, jsonify, request, send_file
 from net_scan import port_scan, get_flags
 from vuln_scan import vuln_scanner
@@ -140,7 +141,17 @@ def download_nmap_log():
             print("File does not exist")
             return jsonify({"error": "File not found"}), 404  
     except Exception as e:
-        return jsonify({"error": str(e)}), 500  
+        return jsonify({"error": str(e)}), 500
+
+@app.route('/download-all', methods=['GET'])
+def download_all():
+    dir_path = results_path()
+    
+    try:
+        shutil.make_archive(base_name='all_files', format='zip', base_dir=dir_path)
+        return send_file('all_files.zip', as_attachment=True)
+    except Exception as e:
+        return jsonify({{"error": str(e)}}), 500
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
