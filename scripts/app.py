@@ -5,7 +5,7 @@ Created: 2/7/25
 Updated: 3/18/25
 '''
 import os
-from flask import Flask, render_template, jsonify, request
+from flask import Flask, render_template, jsonify, request, send_file
 from net_scan import port_scan, get_flags
 from vuln_scan import vuln_scanner
 from osdetection import nmap_results_path, vuln_results_path, nmap_logs_path, vuln_logs_path
@@ -127,6 +127,20 @@ def delete_nmap_log():
             return jsonify({"message": "File not found"}), 404
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+
+@app.route('/download-nmap-log/', methods=['GET'])
+def download_nmap_log():
+    log_path = request.args.get('path')
+
+    try:
+        if os.path.exists(log_path):  
+            print("File exists")
+            return send_file(log_path, as_attachment=True)  
+        else:
+            print("File does not exist")
+            return jsonify({"error": "File not found"}), 404  
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500  
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)

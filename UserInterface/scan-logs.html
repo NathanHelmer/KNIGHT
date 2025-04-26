@@ -226,6 +226,40 @@
             }
         }
 
+        async function downloadNmapLogs(file) {
+            if (!file) {
+                outputBox.textContent = "File not available for download.";
+                return;
+            }
+            try {
+                const dirResponse = await fetch(`/get-nmap-dir/`);
+                const dirData = await dirResponse.json();
+                if (!dirData.nmap_logs_dir) {
+                    outputBox.textContent = "Directory not available.";
+                    return;
+                }
+                const dir = dirData.nmap_logs_dir;
+                const path = dir + file;
+
+                const response = await fetch(`/download-nmap-log/?path=${encodeURIComponent(path)}`);
+                if (response.ok) {
+                    const blob = await response.blob();
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = file;
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    URL.revokeObjectURL(url);
+                } else {
+                    outputBox.textContent = "Failed to download file.";
+                }
+            } catch (error) {
+                outputBox.textContent = "Failed to download file.";
+            }
+        }
+
         async function deleteNmapLogs(file) {
             if (!file) {
                 outputBox.textContent = "File not available for deletion.";
@@ -308,7 +342,7 @@
                     row.style.cursor = "pointer";
                     row.addEventListener("click", () => {
                         if (log.Type === "NMAP") {
-                            loadNmapResults(log.Name);
+                            downloadNmapLogs(log.Name);
                         } else {
                             loadVulnResults(log.Name);
                         }
