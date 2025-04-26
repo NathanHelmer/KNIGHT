@@ -2,14 +2,14 @@
 app.py
 Description: runs Flask applications at the routes specified in '@app.route()'
 Created: 2/7/25
-Updated: 3/18/25
+Updated: 4/26/25
 '''
 import os
 import shutil
 from flask import Flask, render_template, jsonify, request, send_file
 from net_scan import port_scan, get_flags
 from vuln_scan import vuln_scanner
-from osdetection import nmap_results_path, vuln_results_path, nmap_logs_path, vuln_logs_path
+from osdetection import *
 
 app = Flask(__name__, template_folder='../UserInterface', static_folder='../UserInterface/images')
 
