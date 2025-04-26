@@ -9,7 +9,7 @@ def parse_logfile(filepath):
     """Extract headers from a log file."""
     headers = {}
     with open(filepath, "r", encoding="utf-8") as file:
-        for  in range(4):  # Read first 4 lines (headers)
+        for i in range(4):  # Read first 4 lines (headers)
             line = file.readline().strip()
             if ": " in line:
                 key, value = line.split(": ", 1)
