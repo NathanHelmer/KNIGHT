@@ -145,11 +145,12 @@ def download_nmap_log():
 
 @app.route('/download-all', methods=['GET'])
 def download_all():
-    dir_path = results_path()
+    log_path = results_path()
     
     try:
-        shutil.make_archive(base_name='all_files', format='zip', root_dir=dir_path, base_dir=dir_path)
-        return send_file('all_files.zip', as_attachment=True)
+        shutil.make_archive(base_name='all_files', format='zip', root_dir=log_path, base_dir=log_path)
+        log_path = file_zip_path()
+        return send_file(log_path, as_attachment=True)
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
