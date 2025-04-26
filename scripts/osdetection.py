@@ -84,7 +84,10 @@ def results_path():
 
 def file_zip_path():
     linuxdir = os.path.abspath("./")
+    linuxdir = linuxdir + "all_files.zip"
+
     windowsdir = os.path.abspath("\\")
+    windowsdir = windowsdir + "all_files.zip"
     
     if (sys.platform == 'linux'):
         return os.path.join(linuxdir, '')
