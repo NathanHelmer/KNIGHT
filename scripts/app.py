@@ -151,7 +151,7 @@ def download_all():
         shutil.make_archive(base_name='all_files', format='zip', base_dir=dir_path)
         return send_file('all_files.zip', as_attachment=True)
     except Exception as e:
-        return jsonify({{"error": str(e)}}), 500
+        return jsonify({"error": str(e)}), 500
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
