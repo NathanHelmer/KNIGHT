@@ -148,7 +148,7 @@ def download_all():
     dir_path = results_path()
     
     try:
-        shutil.make_archive(base_name='all_files', format='zip', base_dir=dir_path)
+        shutil.make_archive(base_name='all_files', format='zip', root_dir=dir_path, base_dir=dir_path)
         return send_file('all_files.zip', as_attachment=True)
     except Exception as e:
         return jsonify({"error": str(e)}), 500
