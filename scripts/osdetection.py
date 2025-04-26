@@ -73,4 +73,11 @@ def vuln_logs_path():
             os.makedirs(windowsdir)
         return os.path.join(windowsdir, '')
 
+def results_path():
+    linuxdir = os.path.abspath("./results/")
+    windowsdir = os.path.abspath("results\\vuln\\")
     
+    if (sys.platform == 'linux'):
+        return os.path.join(linuxdir, '')
+    else:
+        return os.path.join(windowsdir, '')
