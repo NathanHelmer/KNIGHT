@@ -338,17 +338,45 @@
 
                 filteredLogs.forEach(log => {
                     const row = document.createElement("tr");
-                    row.innerHTML = `<td>${log.Type}</td><td>${log.Name}</td>`;
+                    row.innerHTML = `
+                    <td>${log.Type}</td>
+                    <td>${log.Name}</td>
+                    <td>
+                        <button class="download-button">Download</button>
+                        <button class="delete-button">Delete</button>
+                    </td>
+                `;
                     row.style.cursor = "pointer";
-                    row.addEventListener("click", () => {
+
+                    // Add listeners for download and delete buttons
+                    row.querySelector(".download-button").addEventListener("click", (event) => {
+                        event.stopPropagation();
                         if (log.Type === "NMAP") {
                             downloadNmapLogs(log.Name);
+                        } else {
+                            alert("Download functionality for VULN logs is not implemented yet.");
+                        }
+                    });
+
+                    row.querySelector(".delete-button").addEventListener("click", (event) => {
+                        event.stopPropagation();
+                        if (log.Type === "NMAP") {
+                            deleteNmapLogs(log.Name);
+                        } else {
+                            alert("Download functionality for VULN logs is not implemented yet.");
+                        }
+                    });
+
+                    row.addEventListener("click", () => {
+                        if (log.Type === "NMAP") {
+                            loadNmapResults(log.Name);
                         } else {
                             loadVulnResults(log.Name);
                         }
                     });
                     tableBody.appendChild(row);
                 });
+
 
             } catch (error) {
                 console.error("Error loading logs:", error);
