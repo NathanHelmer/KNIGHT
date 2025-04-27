@@ -126,6 +126,23 @@
         .filter-sort-controls label {
             margin-right: 8px;
         }
+        .btn button {
+            margin: 20px;
+            padding: 10px 20px;
+            background: rgba(255, 77, 77, 0.2);
+            border: 2px solid #ff4d4d;
+            border-radius: 10px;
+            color: #ff4d4d;
+            font-size: 1em;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+        }
+        .btn button:hover {
+            background: rgba(255, 77, 77, 0.4);
+            transform: scale(1.05);
+        }
+
     </style>
 </head>
 <body>
@@ -134,6 +151,11 @@
     <div class="title">
         <h1>SCAN LOGS</h1>
     </div>
+
+    <div class="btn">
+        <button id="download-all">Donwload All</button>
+    </div>
+    
 
     <div class="filter-sort-controls">
         <div>
