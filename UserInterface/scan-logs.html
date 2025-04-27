@@ -205,6 +205,7 @@
         document.getElementById("current-year").textContent = new Date().getFullYear();
 
         const outputBox = document.getElementById('output');
+        const downloadAll = document.getElementById('download-all');
 
         async function loadNmapResults(file) {
             if (!file) {
@@ -321,6 +322,29 @@
             } catch (error) {
                 console.error(error);
                 outputBox.textContent = "Failed to delete file.";
+            }
+        }
+
+        downloadAll.onclick = function() {
+            try {
+                const response = fetch(`/download-all`);
+                if (response.ok) {
+                    const blob = response.blob();
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = file;
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    URL.revokeObjectURL(url);
+                } else {
+                    outputBox.textContent = "Failed to download all files.";
+                }
+            }
+            catch(error) {
+                console.error(error);
+                outputBox.textContent = "Failed to download all files.";
             }
         }
 
