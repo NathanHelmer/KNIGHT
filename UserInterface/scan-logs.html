@@ -325,11 +325,11 @@
             }
         }
 
-        downloadAll.onclick = function() {
+        async function downloadAllFiles() {
             try {
-                const response = fetch(`/download-all`);
+                const response = await fetch(`/download-all`);
                 if (response.ok) {
-                    const blob = response.blob();
+                    const blob = await response.blob();
                     const url = URL.createObjectURL(blob);
                     const a = document.createElement('a');
                     a.href = url;
@@ -427,6 +427,10 @@
             } catch (error) {
                 console.error("Error loading logs:", error);
             }
+        }
+        
+        downloadAll.onclick() = function() {
+            downloadAllFiles();
         }
 
         document.addEventListener("DOMContentLoaded", () => {
