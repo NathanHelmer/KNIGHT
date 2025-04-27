@@ -283,7 +283,7 @@
             }
         }
 
-        async function deleteNmapLogs(file) {
+        downloadAll.addEventListener('click', async () => {
             if (!file) {
                 outputBox.textContent = "File not available for deletion.";
                 return;
@@ -323,7 +323,7 @@
                 console.error(error);
                 outputBox.textContent = "Failed to delete file.";
             }
-        }
+        });
 
         async function downloadAllFiles() {
             try {
