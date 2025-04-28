@@ -117,8 +117,8 @@ def get_vuln_dir():
     path = vuln_logs_path()
     return jsonify({"vuln_logs_dir": path})
 
-@app.route('/delete-nmap-log/', methods=['POST'])
-def delete_nmap_log():
+@app.route('/delete-log/', methods=['POST'])
+def delete_log():
     path = request.args.get('path')
     try:
         if os.path.exists(path):
@@ -129,8 +129,8 @@ def delete_nmap_log():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
-@app.route('/download-nmap-log/', methods=['GET'])
-def download_nmap_log():
+@app.route('/download-log/', methods=['GET'])
+def download_log():
     log_path = request.args.get('path')
 
     try:

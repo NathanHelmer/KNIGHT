@@ -265,7 +265,7 @@
                 const dir = dirData.nmap_logs_dir;
                 const path = dir + file;
 
-                const response = await fetch(`/download-nmap-log/?path=${encodeURIComponent(path)}`);
+                const response = await fetch(`/download-log/?path=${encodeURIComponent(path)}`);
                 if (response.ok) {
                     const blob = await response.blob();
                     const url = URL.createObjectURL(blob);
@@ -284,7 +284,41 @@
             }
         }
 
-        downloadAll.addEventListener('click', async () => {
+        async function downloadVulnlogs(file) {
+            if (!file) {
+                outputBox.textContent = "File not available for download.";
+                return;
+            }
+            try {
+                const dirResponse = await fetch(`/get-vuln-dir/`);
+                const dirData = await dirResponse.json();
+                if (!dirData.vuln_logs_dir) {
+                    outputBox.textContent = "Directory not available.";
+                    return;
+                }
+                const dir = dirData.vuln_logs_dir;
+                const path = dir + file;
+
+                const response = await fetch(`/download-log/?path=${encodeURIComponent(path)}`);
+                if (response.ok) {
+                    const blob = await response.blob();
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = file;
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    URL.revokeObjectURL(url);
+                } else {
+                    outputBox.textContent = "Failed to download file.";
+                }
+            } catch (error) {
+                outputBox.textContent = "Failed to download file.";
+            }
+        }
+
+        async function deleteNmapLogs(file) {
             if (!file) {
                 outputBox.textContent = "File not available for deletion.";
                 return;
@@ -300,7 +334,7 @@
                 const dir = dirData.nmap_logs_dir;
                 const path = dir + file;
 
-                const deleteResponse = await fetch(`/delete-nmap-log/?path=${encodeURIComponent(path)}`,{
+                const deleteResponse = await fetch(`/delete-log/?path=${encodeURIComponent(path)}`,{
                     method: 'POST'
                 });
 
@@ -324,7 +358,49 @@
                 console.error(error);
                 outputBox.textContent = "Failed to delete file.";
             }
-        });
+        };
+
+        async function deleteVulnLogs(file) {
+            if (!file) {
+                outputBox.textContent = "File not available for deletion.";
+                return;
+            }
+            try {
+                const dirResponse = await fetch(`/get-vuln-dir/`);
+                const dirData = await dirResponse.json();
+                if (!dirData.vuln_logs_dir) {
+                    console.error("Failed to get Vuln logs directory.");
+                    outputBox.textContent = "Directory not available.";
+                    return;
+                }
+                const dir = dirData.vuln_logs_dir;
+                const path = dir + file;
+
+                const deleteResponse = await fetch(`/delete-log/?path=${encodeURIComponent(path)}`,{
+                    method: 'POST'
+                });
+
+                if (deleteResponse.ok) {
+                    outputBox.textContent = `"${file}" deleted successfully.`;
+
+                    // Remove the row from the table
+                    const tableBody = document.getElementById("logTableBody");
+                    const rows = tableBody.querySelectorAll("tr");
+                    rows.forEach(row => {
+                        if (row.children[1]?.textContent === file) {
+                            row.remove();
+                        }
+                    });
+                } else {
+                    const err = await deleteResponse.json();
+                    outputBox.textContent = `Failed to delete file: ${err.message || 'Unknown error'}`;
+                }
+
+            } catch (error) {
+                console.error(error);
+                outputBox.textContent = "Failed to delete file.";
+            }
+        };
 
         async function downloadAllFiles() {
             try {
@@ -403,7 +479,7 @@
                         if (log.Type === "NMAP") {
                             downloadNmapLogs(log.Name);
                         } else {
-                            alert("Download functionality for VULN logs is not implemented yet.");
+                            downloadVulnlogs(log.Name);
                         }
                     });
 
@@ -412,7 +488,7 @@
                         if (log.Type === "NMAP") {
                             deleteNmapLogs(log.Name);
                         } else {
-                            alert("Download functionality for VULN logs is not implemented yet.");
+                            deleteVulnLogs(log.Name);
                         }
                     });
 
