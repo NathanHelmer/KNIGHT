@@ -203,17 +203,7 @@
 </head>
 
 <body>
-    <header>
-        <div class="company-name">
-            <a href="index.html">KNIGHT</a>
-        </div>
-        <nav class="nav-links">
-            <a href="nmap-scans.html">NMAP Scans</a>
-            <a href="scan-logs.html">NMAP Logs</a>
-            <a href="vuln-scans.html">Vuln Scans</a>
-            <a href="help.html">Help</a>
-        </nav>
-    </header>
+    {% include 'header.html' %}
 
     <button id="explanation-button">What is this page?</button>
 
@@ -297,7 +287,7 @@
     </main>
 
     <footer>
-        <p>&copy; Seige Engine | Contact us at <a href="mailto:nicolas.domico@stvincen.edu">nicolas.domico@stvincen.edu</a></p>
+        <p>&copy; <span id="current-year"></span> Seige Engine | Contact: <a href="mailto:nicolas.domico@stvincent.edu">nicolas.domico@stvincent.edu</a></p>
     </footer>
 
     <div id="explanation-modal" class="modal">
@@ -437,8 +427,6 @@
                 modal.style.display = 'none';
             }
         }
-
-        
     </script>
 </body>
 </html>
