@@ -153,7 +153,7 @@
     </div>
 
     <div class="btn">
-        <button id="download-all">Donwload All</button>
+        <button id="download-all">Download All</button>
     </div>
     
 
@@ -207,6 +207,11 @@
 
         const outputBox = document.getElementById('output');
         const downloadAll = document.getElementById('download-all');
+
+        downloadAll.addEventListener('click', function() {
+            downloadAllFiles();
+        });
+        
 
         async function loadNmapResults(file) {
             if (!file) {
@@ -410,7 +415,7 @@
                     const url = URL.createObjectURL(blob);
                     const a = document.createElement('a');
                     a.href = url;
-                    a.download = file;
+                    a.download = "all_files.zip";
                     document.body.appendChild(a);
                     a.click();
                     document.body.removeChild(a);

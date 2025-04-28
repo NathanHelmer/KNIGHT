@@ -148,7 +148,7 @@ def download_all():
     log_path = results_path()
     
     try:
-        shutil.make_archive(base_name='all_files', format='zip', root_dir=log_path, base_dir=log_path)
+        shutil.make_archive(base_name='all_files', format='zip', root_dir=log_path, base_dir='.')
         log_path = file_zip_path()
         if (sys.platform == 'linux'):
             return send_file("/home/admin/KNIGHT/all_files.zip", as_attachment=True)
