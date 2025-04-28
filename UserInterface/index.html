@@ -91,9 +91,19 @@
     </style>
 </head>
 <body>
-    {% include 'header.html' %}
+    <header>
+        <div class="company-name">
+            <a href="index.html">KNIGHT</a>
+        </div>
+        <nav class="nav-links">
+            <a href="nmap-scans.html">NMAP Scans</a>
+            <a href="scan-logs.html">NMAP Logs</a>
+            <a href="vuln-scans.html">Vuln Scans</a>
+            <a href="help.html">Help</a>
+        </nav>
+    </header>
     <main class="homepage">
-        <img src="{{ url_for('static', filename='KnightLogo.jpg') }}" alt="KNIGHT Logo">
+        <img src="./images/KnightLogo.jpg" alt="KNIGHT Logo">
         <div class="description">
             <h1>Welcome to KNIGHT</h1>
             <p>
@@ -104,17 +114,7 @@
         </div>
     </main>
     <footer>
-        <p>&copy; <span id="current-date"></span> | Contact us at <a href="mailto:nicolas.domico@stvincent.edu">nicolas.domico@stvincent.edu</a></p>
-        <script>
-            function updateTime() {
-                const now = new Date();
-                const formattedDate = now.toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' });
-                const formattedTime = now.toLocaleTimeString();
-                document.getElementById('current-date').textContent = `${formattedDate}, ${formattedTime}`;
-            }
-            setInterval(updateTime, 1000);
-            updateTime(); // Initialize immediately
-        </script>
+        <p>&copy; Seige Engine | Contact us at <a href="mailto:nicolas.domico@stvincen.edu">nicolas.domico@stvincen.edu</a></p>
     </footer>
 </body>
 </html>
