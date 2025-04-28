@@ -176,8 +176,6 @@
       <select id="sortBy">
         <option value="date-desc">Date ↓</option>
         <option value="date-asc">Date ↑</option>
-        <option value="type-asc">Type A-Z</option>
-        <option value="type-desc">Type Z-A</option>
       </select>
     </div>
   </div>
@@ -462,8 +460,6 @@
                 filteredLogs.sort((a, b) => {
                     if (sortBy === "date-desc") return b.Name.localeCompare(a.Name);
                     if (sortBy === "date-asc") return a.Name.localeCompare(b.Name);
-                    if (sortBy === "type-asc") return a.Type.localeCompare(b.Type);
-                    if (sortBy === "type-desc") return b.Type.localeCompare(a.Type);
                     return 0;
                 });
 
