@@ -1,208 +1,214 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KNIGHT</title>
-    <style>
-        body {
-            margin: 0;
-            font-family: 'Courier New', Courier, monospace;
-            background-color: #0d1117;
-            color: #c9d1d9;
-            display: flex;
-            flex-direction: column;
-            height: 100vh;
-        }
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: linear-gradient(90deg, #3a3f44, #1e2228);
-            padding: 15px 30px;
-            border-bottom: 2px solid #ff4d4d;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-        }
-        .company-name a {
-            text-decoration: none;
-            color: #ff4d4d;
-            font-size: 2em;
-            font-weight: bold;
-            text-shadow: 0 0 8px #ff4d4d, 0 0 16px #ff4d4d;
-            transition: transform 0.3s, text-shadow 0.3s;
-        }
-        .company-name a:hover {
-            transform: scale(1.1);
-            text-shadow: 0 0 12px #ff4d4d, 0 0 24px #ff4d4d;
-        }
-        .nav-links {
-            display: flex;
-            gap: 20px;
-        }
-        .nav-links a {
-            text-decoration: none;
-            color: #c9d1d9; 
-            font-size: 1em;
-            font-weight: bold;
-            padding: 8px 16px;
-            border-radius: 10px;
-            background: rgba(255, 77, 77, 0.1); 
-            transition: all 0.3s;
-        }
-        .nav-links a:hover {
-            background: rgba(255, 77, 77, 0.2); 
-            color: #ff4d4d; 
-            transform: translateY(-3px); 
-            box-shadow: 0 0 8px #ff4d4d; 
-        }
-        .table-container {
-            flex: 1;
-            overflow-y: auto;
-            border: 3.5px solid #812e31;
-            width: auto;
-            margin-left: auto; 
-            margin-right: auto;
-            max-height: 80vh;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        thead th {
-            position: sticky;
-            top: 0;
-            background-color: #ff4d4d;
-            z-index: 1;
-            font-size: 25px;
-        }
-        th, td {
-            padding: 11px;
-            text-align: left;
-            border: 1px solid #a83739;
-        }
-        .title{
-            text-decoration: none;
-            color: #ff4d4d; 
-            font-size: 1em;
-            font-weight: bold;
-            text-shadow: 0 0 8px #ff4d4d, 0 0 16px #ff4d4d; 
-            text-align: center;
-        }
-        .output-box {
-            flex: 1;
-            padding: 20px;
-            background: rgba(255, 77, 77, 0.1);
-            border: 2px solid #ff4d4d;
-            border-radius: 10px;
-            color: #ff4d4d;
-            font-family: 'Courier New', Courier, monospace;
-            overflow-y: auto;
-            white-space: pre-wrap;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-            max-height: 80vh;
-        }
-        .main {
-            display: flex;
-            padding: 20px;
-            gap: 20px;
-            flex: 1;
-            height: calc(100vh - 160px);
-            flex-wrap: wrap;
-        }
-        footer {
-            text-align: center;
-            padding: 10px;
-            background: linear-gradient(90deg, #3a3f44, #1e2228);
-            border-top: 2px solid #ff4d4d;
-            color: #c9d1d9;
-            font-size: 0.9em;
-        }
-        .filter-sort-controls {
-            display: flex;
-            justify-content: space-between;
-            padding: 10px 30px;
-            align-items: center;
-        }
-        .filter-sort-controls label {
-            margin-right: 8px;
-        }
-        .btn button {
-            margin: 20px;
-            padding: 10px 20px;
-            background: rgba(255, 77, 77, 0.2);
-            border: 2px solid #ff4d4d;
-            border-radius: 10px;
-            color: #ff4d4d;
-            font-size: 1em;
-            cursor: pointer;
-            transition: all 0.3s;
-            text-align: center;
-        }
-        .btn button:hover {
-            background: rgba(255, 77, 77, 0.4);
-            transform: scale(1.05);
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KNIGHT</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Courier New', Courier, monospace;
+      background-color: #0d1117;
+      color: #c9d1d9;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+    }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: linear-gradient(90deg, #3a3f44, #1e2228);
+      padding: 15px 30px;
+      border-bottom: 2px solid #ff4d4d;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    }
+    .company-name a {
+      text-decoration: none;
+      color: #ff4d4d;
+      font-size: 2em;
+      font-weight: bold;
+      text-shadow: 0 0 8px #ff4d4d, 0 0 16px #ff4d4d;
+      transition: transform 0.3s, text-shadow 0.3s;
+    }
+    .company-name a:hover {
+      transform: scale(1.1);
+      text-shadow: 0 0 12px #ff4d4d, 0 0 24px #ff4d4d;
+    }
+    .nav-links {
+      display: flex;
+      gap: 20px;
+    }
+    .nav-links a {
+      text-decoration: none;
+      color: #c9d1d9; 
+      font-size: 1em;
+      font-weight: bold;
+      padding: 8px 16px;
+      border-radius: 10px;
+      background: rgba(255, 77, 77, 0.1); 
+      transition: all 0.3s;
+    }
+    .nav-links a:hover {
+      background: rgba(255, 77, 77, 0.2); 
+      color: #ff4d4d; 
+      transform: translateY(-3px); 
+      box-shadow: 0 0 8px #ff4d4d; 
+    }
+    .table-container {
+      flex: 1;
+      overflow-y: auto;
+      border: 3.5px solid #812e31;
+      width: auto;
+      margin-left: auto; 
+      margin-right: auto;
+      max-height: 80vh;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    thead th {
+      position: sticky;
+      top: 0;
+      background-color: #ff4d4d;
+      z-index: 1;
+      font-size: 25px;
+    }
+    th, td {
+      padding: 11px;
+      text-align: left;
+      border: 1px solid #a83739;
+    }
+    .title{
+      text-decoration: none;
+      color: #ff4d4d; 
+      font-size: 1em;
+      font-weight: bold;
+      text-shadow: 0 0 8px #ff4d4d, 0 0 16px #ff4d4d; 
+      text-align: center;
+    }
+    .output-box {
+      flex: 1;
+      padding: 20px;
+      background: rgba(255, 77, 77, 0.1);
+      border: 2px solid #ff4d4d;
+      border-radius: 10px;
+      color: #ff4d4d;
+      font-family: 'Courier New', Courier, monospace;
+      overflow-y: auto;
+      white-space: pre-wrap;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+      max-height: 80vh;
+    }
+    .main {
+      display: flex;
+      padding: 20px;
+      gap: 20px;
+      flex: 1;
+      height: calc(100vh - 160px);
+      flex-wrap: wrap;
+    }
+    footer {
+      text-align: center;
+      padding: 10px;
+      background: linear-gradient(90deg, #3a3f44, #1e2228);
+      border-top: 2px solid #ff4d4d;
+      color: #c9d1d9;
+      font-size: 0.9em;
+    }
 
-    </style>
+    .filter-sort-controls {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 40px;
+      padding: 10px 30px;
+      flex-wrap: wrap;
+    }
+    .filter-sort-controls > div {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn button {
+      padding: 10px 20px;
+      background: rgba(255, 77, 77, 0.2);
+      border: 2px solid #ff4d4d;
+      border-radius: 10px;
+      color: #ff4d4d;
+      font-size: 1em;
+      cursor: pointer;
+      transition: all 0.3s;
+      text-align: center;
+    }
+    .btn button:hover {
+      background: rgba(255, 77, 77, 0.4);
+      transform: scale(1.05);
+    }
+  </style>
 </head>
-<body>
-    {% include 'header.html' %}
 
-    <div class="title">
-        <h1>SCAN LOGS</h1>
+<body>
+  {% include 'header.html' %}
+
+  <div class="title">
+    <h1>SCAN LOGS</h1>
+  </div>
+
+  <div class="filter-sort-controls">
+    <div>
+      <label for="typeFilter">Filter by:</label>
+      <select id="typeFilter">
+        <option value="ALL">All</option>
+        <option value="NMAP">NMAP</option>
+        <option value="VULN">VULN</option>
+      </select>
     </div>
 
     <div class="btn">
-        <button id="download-all">Download All</button>
-    </div>
-    
-
-    <div class="filter-sort-controls">
-        <div>
-            <label for="typeFilter">Filter by Type:</label>
-            <select id="typeFilter">
-                <option value="ALL">All</option>
-                <option value="NMAP">NMAP</option>
-                <option value="VULN">VULN</option>
-            </select>
-        </div>
-        <div>
-            <label for="sortBy">Sort by:</label>
-            <select id="sortBy">
-                <option value="date-desc">Date ↓</option>
-                <option value="date-asc">Date ↑</option>
-                <option value="type-asc">Type A-Z</option>
-                <option value="type-desc">Type Z-A</option>
-            </select>
-        </div>
+      <button id="download-all">Download All</button>
     </div>
 
-    <main class="main">
-        <div class="table-container">
-            <table>
-                <thead>
-                    <tr>
-                        <th><b>Type</b></th>
-                        <th><b>Date</b></th>
-                        <th><b>Action</b></th>
-                    </tr>
-                </thead>
-                <tbody id="logTableBody">
-                    <!-- Log data will be loaded here dynamically -->
-                </tbody>
-            </table>
-        </div>
+    <div>
+      <label for="sortBy">Sort by:</label>
+      <select id="sortBy">
+        <option value="date-desc">Date ↓</option>
+        <option value="date-asc">Date ↑</option>
+        <option value="type-asc">Type A-Z</option>
+        <option value="type-desc">Type Z-A</option>
+      </select>
+    </div>
+  </div>
 
-        <div class="output-box" id="output">
-            Results will appear here
-        </div>
-    </main>
+  <main class="main">
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th><b>Type</b></th>
+            <th><b>Date</b></th>
+            <th><b>Action</b></th>
+          </tr>
+        </thead>
+        <tbody id="logTableBody">
+          <!-- Log data will be loaded here dynamically -->
+        </tbody>
+      </table>
+    </div>
 
-    <footer>
-        <p>&copy; <span id="current-year"></span> Seige Engine | Contact: <a href="mailto:nicolas.domico@stvincent.edu">nicolas.domico@stvincent.edu</a></p>
-    </footer>
+    <div class="output-box" id="output">
+      Results will appear here
+    </div>
+  </main>
 
-    <script>
+  <footer>
+    <p>&copy; <span id="current-year"></span> Seige Engine | Contact: 
+    <a href="mailto:nicolas.domico@stvincent.edu">nicolas.domico@stvincent.edu</a></p>
+  </footer>
+
+  <script>
         document.getElementById("current-year").textContent = new Date().getFullYear();
 
         const outputBox = document.getElementById('output');
