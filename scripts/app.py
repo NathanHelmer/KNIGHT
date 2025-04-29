@@ -53,8 +53,14 @@ def run_nmap_scan():
 
 @app.route('/run-vuln-scan/', methods=['GET'])
 def run_vuln_scan():
-    ipaddr = request.args.get('ip', '127.0.0.1')
-    ports = request.args.get('ports', '1-1000')
+    ipaddr = request.args.get('ip', '')
+    ports = request.args.get('ports', '')
+
+    if ports == '':
+        ports = '1-1000'
+    
+    if ipaddr == '':
+        ipaddr = '127.0.0.1'
     
     path = vuln_results_path()
     vuln_scanner(ipaddr, ports, path)

@@ -240,8 +240,8 @@
             <div class="scan-section" id="port-range">
                 <h2>Port Range <span class="tooltip">?
         <span class="tooltiptext">Specify a range of ports to scan. <br>
-        Example: 1-1000 will scan ports 1 to 1000. <br>
-        Leave blank for all ports.</span>
+        Example: 1-6000 will scan ports 1 to 6000. <br>
+        Leave blank for ports 1-1000.</span>
       </span></h2>
                 <input type="checkbox" id="custom-ports">
                 <label for="custom-ports">Custom Range</label>
@@ -253,7 +253,6 @@
         <span class="tooltiptext">
           - OS Detection (-O): Attempts to determine the operating system of the target. <br>
           - Version Detection (-sV): Tries to detect service versions running on open ports. <br>
-          - Scan Speed (-T0 to -T5): Higher T values make scans faster but noisier. <br>
         </span></h2>
                 <input type="checkbox" id="os-detection" value="-O">
                 <label for="os-detection">OS Detection</label>
@@ -263,7 +262,7 @@
 
                 <h2>Scan Speed <span class="tooltip">?
         <span class="tooltiptext">
-          The higher the number, he faster the scan will run, but it is louder for the security team.
+          The higher the number, he faster the scan will run, but it is louder and easier to detect.
         </span></h2>
                 <select id="speed">
                     <option value="">Default</option>
