@@ -203,17 +203,7 @@
 </head>
 
 <body>
-    <header>
-        <div class="company-name">
-            <a href="index.html">KNIGHT</a>
-        </div>
-        <nav class="nav-links">
-            <a href="nmap-scans.html">NMAP Scans</a>
-            <a href="scan-logs.html">NMAP Logs</a>
-            <a href="vuln-scans.html">Vuln Scans</a>
-            <a href="help.html">Help</a>
-        </nav>
-    </header>
+    {% include 'header.html' %}
 
     <button id="explanation-button">What is this page?</button>
 
@@ -250,8 +240,8 @@
             <div class="scan-section" id="port-range">
                 <h2>Port Range <span class="tooltip">?
         <span class="tooltiptext">Specify a range of ports to scan. <br>
-        Example: 1-1000 will scan ports 1 to 1000. <br>
-        Leave blank for all ports.</span>
+        Example: 1-6000 will scan ports 1 to 6000. <br>
+        Leave blank for ports 1-1000.</span>
       </span></h2>
                 <input type="checkbox" id="custom-ports">
                 <label for="custom-ports">Custom Range</label>
@@ -263,7 +253,6 @@
         <span class="tooltiptext">
           - OS Detection (-O): Attempts to determine the operating system of the target. <br>
           - Version Detection (-sV): Tries to detect service versions running on open ports. <br>
-          - Scan Speed (-T0 to -T5): Higher T values make scans faster but noisier. <br>
         </span></h2>
                 <input type="checkbox" id="os-detection" value="-O">
                 <label for="os-detection">OS Detection</label>
@@ -273,7 +262,7 @@
 
                 <h2>Scan Speed <span class="tooltip">?
         <span class="tooltiptext">
-          The higher the number, he faster the scan will run, but it is louder for the security team.
+          The higher the number, he faster the scan will run, but it is louder and easier to detect.
         </span></h2>
                 <select id="speed">
                     <option value="">Default</option>
@@ -297,7 +286,7 @@
     </main>
 
     <footer>
-        <p>&copy; Seige Engine | Contact us at <a href="mailto:nicolas.domico@stvincen.edu">nicolas.domico@stvincen.edu</a></p>
+        <p>&copy; <span id="current-year"></span> Siege Engine | Contact: <a href="mailto:nicolas.domico@stvincent.edu">nicolas.domico@stvincent.edu</a></p>
     </footer>
 
     <div id="explanation-modal" class="modal">
@@ -437,8 +426,6 @@
                 modal.style.display = 'none';
             }
         }
-
-        
     </script>
 </body>
 </html>
