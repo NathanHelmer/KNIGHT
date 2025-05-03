@@ -60,7 +60,9 @@ def nmap_logs_path():
         if not os.path.exists(windowsdir):
             os.makedirs(windowsdir)
         return os.path.join(windowsdir, '')
-    
+
+# Precondition: none
+# Postcondition: returns the file path for Vuln logs directory based on the host OS (Windows or Linux)
 def vuln_logs_path():
     linuxdir = os.path.abspath("./results/vuln/")
     windowsdir = os.path.abspath("results\\vuln\\")
@@ -73,19 +75,12 @@ def vuln_logs_path():
             os.makedirs(windowsdir)
         return os.path.join(windowsdir, '')
 
+# Precondition: none
+# Postcondition: returns the file path for the results folder containing the Nmap and Vuln logs directories based
+# on the host OS (Windows or Linux)
 def results_path():
     linuxdir = os.path.abspath("./results/")
     windowsdir = os.path.abspath("\\results\\")
-    
-    if (sys.platform == 'linux'):
-        return os.path.join(linuxdir, '')
-    else:
-        return os.path.join(windowsdir, '')
-
-def file_zip_path():
-    linuxdir = os.path.abspath("./all_files.zip")
-
-    windowsdir = os.path.abspath("\\all_files.zip")
     
     if (sys.platform == 'linux'):
         return os.path.join(linuxdir, '')
