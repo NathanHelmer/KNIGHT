@@ -24,24 +24,5 @@ As part of creating a streamlined, UI-based approach to pentesting, multiple dif
 
 </div>
 
-# Technical Instructions
-## Creating a Virtual Environment
-Create the virtual environment run these commands in the home directory:
-
-`python -m venv venv`
-
-Activate the virtual environment:
-
-`venv\Scripts\activate`
-
-Install required packages:
-
-`python -m venv env`
-
-`source env/bin/activate`
-
-`pip install -r requirements.txt`
-
-If you use pip to install more packages to your virtual environment, you can make a new requirements.txt using:
-
-`pip freeze > requirements.txt`
+## Technical Layout and User Instructions
+See the included Technical Manual and User Manual for further instructions on how the KNIGHT works and how to use it.
